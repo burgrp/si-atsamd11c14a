@@ -1,6 +1,6 @@
 {
   "name": "si-atsamd11c14a",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ATSAMD11C14A peripheral library",
   "author": "pb@drake.cz",
   "license": "ISC",
