@@ -226,100 +226,88 @@ namespace target {
         }
         /**
           Gets HPB0 AHB Clock Mask
+          @param index in range 0..2
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getHPB0_() volatile {
-          return (raw & (0x1 << 0)) >> 0;
+        __attribute__((always_inline)) unsigned long getHPB(int index) volatile {
+          return (raw & (0x1 << (0 + 1 * (index - 0)))) >> (0 + 1 * (index - 0));
         }
         /**
           Sets HPB0 AHB Clock Mask
+          @param index in range 0..2
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setHPB0_(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 0)) | ((value << 0) & (0x1 << 0));
+        __attribute__((always_inline)) unsigned long setHPB(int index, unsigned long value) volatile {
+          raw = (raw & ~(0x1 << (0 + 1 * (index - 0)))) | ((value << (0 + 1 * (index - 0))) & (0x1 << (0 + 1 * (index - 0))));
         }
         /**
-          Gets HPB1 AHB Clock Mask
-          @return value in range 0..1
+          Gets HPB0 AHB Clock Mask
+          @return value in range 0..7
         */
-        __attribute__((always_inline)) unsigned long getHPB1_() volatile {
-          return (raw & (0x1 << 1)) >> 1;
+        __attribute__((always_inline)) unsigned long getHPB() volatile {
+          return (raw & (0x7 << 0)) >> 0;
         }
         /**
-          Sets HPB1 AHB Clock Mask
-          @param value in range 0..1
+          Sets HPB0 AHB Clock Mask
+          @param value in range 0..7
         */
-        __attribute__((always_inline)) unsigned long setHPB1_(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 1)) | ((value << 1) & (0x1 << 1));
-        }
-        /**
-          Gets HPB2 AHB Clock Mask
-          @return value in range 0..1
-        */
-        __attribute__((always_inline)) unsigned long getHPB2_() volatile {
-          return (raw & (0x1 << 2)) >> 2;
-        }
-        /**
-          Sets HPB2 AHB Clock Mask
-          @param value in range 0..1
-        */
-        __attribute__((always_inline)) unsigned long setHPB2_(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 2)) | ((value << 2) & (0x1 << 2));
+        __attribute__((always_inline)) unsigned long setHPB(unsigned long value) volatile {
+          raw = (raw & ~(0x7 << 0)) | ((value << 0) & (0x7 << 0));
         }
         /**
           Gets DSU AHB Clock Mask
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getDSU_() volatile {
+        __attribute__((always_inline)) unsigned long getDSU() volatile {
           return (raw & (0x1 << 3)) >> 3;
         }
         /**
           Sets DSU AHB Clock Mask
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setDSU_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setDSU(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 3)) | ((value << 3) & (0x1 << 3));
         }
         /**
           Gets NVMCTRL AHB Clock Mask
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getNVMCTRL_() volatile {
+        __attribute__((always_inline)) unsigned long getNVMCTRL() volatile {
           return (raw & (0x1 << 4)) >> 4;
         }
         /**
           Sets NVMCTRL AHB Clock Mask
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setNVMCTRL_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setNVMCTRL(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 4)) | ((value << 4) & (0x1 << 4));
         }
         /**
           Gets DMAC AHB Clock Mask
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getDMAC_() volatile {
+        __attribute__((always_inline)) unsigned long getDMAC() volatile {
           return (raw & (0x1 << 5)) >> 5;
         }
         /**
           Sets DMAC AHB Clock Mask
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setDMAC_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setDMAC(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 5)) | ((value << 5) & (0x1 << 5));
         }
         /**
           Gets USB AHB Clock Mask
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getUSB_() volatile {
+        __attribute__((always_inline)) unsigned long getUSB() volatile {
           return (raw & (0x1 << 6)) >> 6;
         }
         /**
           Sets USB AHB Clock Mask
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setUSB_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setUSB(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 6)) | ((value << 6) & (0x1 << 6));
         }
       };
@@ -340,98 +328,98 @@ namespace target {
           Gets PAC0 APB Clock Enable
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getPAC0_() volatile {
+        __attribute__((always_inline)) unsigned long getPAC0() volatile {
           return (raw & (0x1 << 0)) >> 0;
         }
         /**
           Sets PAC0 APB Clock Enable
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setPAC0_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setPAC0(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 0)) | ((value << 0) & (0x1 << 0));
         }
         /**
           Gets PM APB Clock Enable
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getPM_() volatile {
+        __attribute__((always_inline)) unsigned long getPM() volatile {
           return (raw & (0x1 << 1)) >> 1;
         }
         /**
           Sets PM APB Clock Enable
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setPM_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setPM(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 1)) | ((value << 1) & (0x1 << 1));
         }
         /**
           Gets SYSCTRL APB Clock Enable
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getSYSCTRL_() volatile {
+        __attribute__((always_inline)) unsigned long getSYSCTRL() volatile {
           return (raw & (0x1 << 2)) >> 2;
         }
         /**
           Sets SYSCTRL APB Clock Enable
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setSYSCTRL_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setSYSCTRL(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 2)) | ((value << 2) & (0x1 << 2));
         }
         /**
           Gets GCLK APB Clock Enable
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getGCLK_() volatile {
+        __attribute__((always_inline)) unsigned long getGCLK() volatile {
           return (raw & (0x1 << 3)) >> 3;
         }
         /**
           Sets GCLK APB Clock Enable
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setGCLK_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setGCLK(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 3)) | ((value << 3) & (0x1 << 3));
         }
         /**
           Gets WDT APB Clock Enable
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getWDT_() volatile {
+        __attribute__((always_inline)) unsigned long getWDT() volatile {
           return (raw & (0x1 << 4)) >> 4;
         }
         /**
           Sets WDT APB Clock Enable
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setWDT_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setWDT(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 4)) | ((value << 4) & (0x1 << 4));
         }
         /**
           Gets RTC APB Clock Enable
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getRTC_() volatile {
+        __attribute__((always_inline)) unsigned long getRTC() volatile {
           return (raw & (0x1 << 5)) >> 5;
         }
         /**
           Sets RTC APB Clock Enable
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setRTC_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setRTC(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 5)) | ((value << 5) & (0x1 << 5));
         }
         /**
           Gets EIC APB Clock Enable
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getEIC_() volatile {
+        __attribute__((always_inline)) unsigned long getEIC() volatile {
           return (raw & (0x1 << 6)) >> 6;
         }
         /**
           Sets EIC APB Clock Enable
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setEIC_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setEIC(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 6)) | ((value << 6) & (0x1 << 6));
         }
       };
@@ -452,98 +440,98 @@ namespace target {
           Gets PAC1 APB Clock Enable
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getPAC1_() volatile {
+        __attribute__((always_inline)) unsigned long getPAC1() volatile {
           return (raw & (0x1 << 0)) >> 0;
         }
         /**
           Sets PAC1 APB Clock Enable
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setPAC1_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setPAC1(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 0)) | ((value << 0) & (0x1 << 0));
         }
         /**
           Gets DSU APB Clock Enable
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getDSU_() volatile {
+        __attribute__((always_inline)) unsigned long getDSU() volatile {
           return (raw & (0x1 << 1)) >> 1;
         }
         /**
           Sets DSU APB Clock Enable
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setDSU_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setDSU(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 1)) | ((value << 1) & (0x1 << 1));
         }
         /**
           Gets NVMCTRL APB Clock Enable
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getNVMCTRL_() volatile {
+        __attribute__((always_inline)) unsigned long getNVMCTRL() volatile {
           return (raw & (0x1 << 2)) >> 2;
         }
         /**
           Sets NVMCTRL APB Clock Enable
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setNVMCTRL_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setNVMCTRL(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 2)) | ((value << 2) & (0x1 << 2));
         }
         /**
           Gets PORT APB Clock Enable
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getPORT_() volatile {
+        __attribute__((always_inline)) unsigned long getPORT() volatile {
           return (raw & (0x1 << 3)) >> 3;
         }
         /**
           Sets PORT APB Clock Enable
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setPORT_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setPORT(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 3)) | ((value << 3) & (0x1 << 3));
         }
         /**
           Gets DMAC APB Clock Enable
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getDMAC_() volatile {
+        __attribute__((always_inline)) unsigned long getDMAC() volatile {
           return (raw & (0x1 << 4)) >> 4;
         }
         /**
           Sets DMAC APB Clock Enable
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setDMAC_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setDMAC(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 4)) | ((value << 4) & (0x1 << 4));
         }
         /**
           Gets USB APB Clock Enable
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getUSB_() volatile {
+        __attribute__((always_inline)) unsigned long getUSB() volatile {
           return (raw & (0x1 << 5)) >> 5;
         }
         /**
           Sets USB APB Clock Enable
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setUSB_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setUSB(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 5)) | ((value << 5) & (0x1 << 5));
         }
         /**
           Gets HMATRIX APB Clock Enable
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getHMATRIX_() volatile {
+        __attribute__((always_inline)) unsigned long getHMATRIX() volatile {
           return (raw & (0x1 << 6)) >> 6;
         }
         /**
           Sets HMATRIX APB Clock Enable
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setHMATRIX_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setHMATRIX(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 6)) | ((value << 6) & (0x1 << 6));
         }
       };
@@ -561,157 +549,161 @@ namespace target {
           return raw;
         }
         /**
+          Gets SERCOM0 APB Clock Enable
+          @param index in range 0..1
+          @return value in range 0..1
+        */
+        __attribute__((always_inline)) unsigned long getSERCOM(int index) volatile {
+          return (raw & (0x1 << (2 + 1 * (index - 0)))) >> (2 + 1 * (index - 0));
+        }
+        /**
+          Sets SERCOM0 APB Clock Enable
+          @param index in range 0..1
+          @param value in range 0..1
+        */
+        __attribute__((always_inline)) unsigned long setSERCOM(int index, unsigned long value) volatile {
+          raw = (raw & ~(0x1 << (2 + 1 * (index - 0)))) | ((value << (2 + 1 * (index - 0))) & (0x1 << (2 + 1 * (index - 0))));
+        }
+        /**
+          Gets SERCOM0 APB Clock Enable
+          @return value in range 0..3
+        */
+        __attribute__((always_inline)) unsigned long getSERCOM() volatile {
+          return (raw & (0x3 << 2)) >> 2;
+        }
+        /**
+          Sets SERCOM0 APB Clock Enable
+          @param value in range 0..3
+        */
+        __attribute__((always_inline)) unsigned long setSERCOM(unsigned long value) volatile {
+          raw = (raw & ~(0x3 << 2)) | ((value << 2) & (0x3 << 2));
+        }
+        /**
+          Gets TC1 APB Clock Enable
+          @param index in range 1..2
+          @return value in range 0..1
+        */
+        __attribute__((always_inline)) unsigned long getTC(int index) volatile {
+          return (raw & (0x1 << (6 + 1 * (index - 1)))) >> (6 + 1 * (index - 1));
+        }
+        /**
+          Sets TC1 APB Clock Enable
+          @param index in range 1..2
+          @param value in range 0..1
+        */
+        __attribute__((always_inline)) unsigned long setTC(int index, unsigned long value) volatile {
+          raw = (raw & ~(0x1 << (6 + 1 * (index - 1)))) | ((value << (6 + 1 * (index - 1))) & (0x1 << (6 + 1 * (index - 1))));
+        }
+        /**
+          Gets TC1 APB Clock Enable
+          @return value in range 0..3
+        */
+        __attribute__((always_inline)) unsigned long getTC() volatile {
+          return (raw & (0x3 << 6)) >> 6;
+        }
+        /**
+          Sets TC1 APB Clock Enable
+          @param value in range 0..3
+        */
+        __attribute__((always_inline)) unsigned long setTC(unsigned long value) volatile {
+          raw = (raw & ~(0x3 << 6)) | ((value << 6) & (0x3 << 6));
+        }
+        /**
           Gets PAC2 APB Clock Enable
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getPAC2_() volatile {
+        __attribute__((always_inline)) unsigned long getPAC2() volatile {
           return (raw & (0x1 << 0)) >> 0;
         }
         /**
           Sets PAC2 APB Clock Enable
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setPAC2_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setPAC2(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 0)) | ((value << 0) & (0x1 << 0));
         }
         /**
           Gets EVSYS APB Clock Enable
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getEVSYS_() volatile {
+        __attribute__((always_inline)) unsigned long getEVSYS() volatile {
           return (raw & (0x1 << 1)) >> 1;
         }
         /**
           Sets EVSYS APB Clock Enable
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setEVSYS_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setEVSYS(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 1)) | ((value << 1) & (0x1 << 1));
-        }
-        /**
-          Gets SERCOM0 APB Clock Enable
-          @return value in range 0..1
-        */
-        __attribute__((always_inline)) unsigned long getSERCOM0_() volatile {
-          return (raw & (0x1 << 2)) >> 2;
-        }
-        /**
-          Sets SERCOM0 APB Clock Enable
-          @param value in range 0..1
-        */
-        __attribute__((always_inline)) unsigned long setSERCOM0_(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 2)) | ((value << 2) & (0x1 << 2));
-        }
-        /**
-          Gets SERCOM1 APB Clock Enable
-          @return value in range 0..1
-        */
-        __attribute__((always_inline)) unsigned long getSERCOM1_() volatile {
-          return (raw & (0x1 << 3)) >> 3;
-        }
-        /**
-          Sets SERCOM1 APB Clock Enable
-          @param value in range 0..1
-        */
-        __attribute__((always_inline)) unsigned long setSERCOM1_(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 3)) | ((value << 3) & (0x1 << 3));
         }
         /**
           Gets TCC0 APB Clock Enable
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getTCC0_() volatile {
+        __attribute__((always_inline)) unsigned long getTCC0() volatile {
           return (raw & (0x1 << 5)) >> 5;
         }
         /**
           Sets TCC0 APB Clock Enable
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setTCC0_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setTCC0(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 5)) | ((value << 5) & (0x1 << 5));
-        }
-        /**
-          Gets TC1 APB Clock Enable
-          @return value in range 0..1
-        */
-        __attribute__((always_inline)) unsigned long getTC1_() volatile {
-          return (raw & (0x1 << 6)) >> 6;
-        }
-        /**
-          Sets TC1 APB Clock Enable
-          @param value in range 0..1
-        */
-        __attribute__((always_inline)) unsigned long setTC1_(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 6)) | ((value << 6) & (0x1 << 6));
-        }
-        /**
-          Gets TC2 APB Clock Enable
-          @return value in range 0..1
-        */
-        __attribute__((always_inline)) unsigned long getTC2_() volatile {
-          return (raw & (0x1 << 7)) >> 7;
-        }
-        /**
-          Sets TC2 APB Clock Enable
-          @param value in range 0..1
-        */
-        __attribute__((always_inline)) unsigned long setTC2_(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 7)) | ((value << 7) & (0x1 << 7));
         }
         /**
           Gets ADC APB Clock Enable
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getADC_() volatile {
+        __attribute__((always_inline)) unsigned long getADC() volatile {
           return (raw & (0x1 << 8)) >> 8;
         }
         /**
           Sets ADC APB Clock Enable
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setADC_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setADC(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 8)) | ((value << 8) & (0x1 << 8));
         }
         /**
           Gets AC APB Clock Enable
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getAC_() volatile {
+        __attribute__((always_inline)) unsigned long getAC() volatile {
           return (raw & (0x1 << 9)) >> 9;
         }
         /**
           Sets AC APB Clock Enable
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setAC_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setAC(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 9)) | ((value << 9) & (0x1 << 9));
         }
         /**
           Gets DAC APB Clock Enable
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getDAC_() volatile {
+        __attribute__((always_inline)) unsigned long getDAC() volatile {
           return (raw & (0x1 << 10)) >> 10;
         }
         /**
           Sets DAC APB Clock Enable
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setDAC_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setDAC(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 10)) | ((value << 10) & (0x1 << 10));
         }
         /**
           Gets PTC APB Clock Enable
           @return value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long getPTC_() volatile {
+        __attribute__((always_inline)) unsigned long getPTC() volatile {
           return (raw & (0x1 << 11)) >> 11;
         }
         /**
           Sets PTC APB Clock Enable
           @param value in range 0..1
         */
-        __attribute__((always_inline)) unsigned long setPTC_(unsigned long value) volatile {
+        __attribute__((always_inline)) unsigned long setPTC(unsigned long value) volatile {
           raw = (raw & ~(0x1 << 11)) | ((value << 11) & (0x1 << 11));
         }
       };
