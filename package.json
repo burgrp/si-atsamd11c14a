@@ -31,7 +31,8 @@
       "generated/tcc.cpp",
       "generated/usb.cpp",
       "generated/wdt.cpp",
-      "generated/systick.cpp"
+      "generated/systick.cpp",
+      "generated/nvic.cpp"
     ],
     "symbols": {
       "_ZN6target2ACE": "0x42002400",
@@ -60,7 +61,8 @@
       "_ZN6target4TCC0E": "0x42001400",
       "_ZN6target3USBE": "0x41005000",
       "_ZN6target3WDTE": "0x40001000",
-      "_ZN6target7SYSTICKE": "0xE000E010"
+      "_ZN6target7SYSTICKE": "0xE000E010",
+      "_ZN6target4NVICE": "0xE000E100"
     },
     "interrupts": {
       "0": "PM",
