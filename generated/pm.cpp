@@ -1,11 +1,11 @@
 namespace target {
   namespace pm {
-    namespace reg {
-      
-      /**
-        Control
-      */
-      class CTRL {
+    
+    /**
+      Control
+    */
+    namespace CTRL {
+      class Register {
         volatile unsigned char raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -13,41 +13,61 @@ namespace target {
         }
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
+        }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
         }
         /**
           Gets Clock Failure Detector Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getCFDEN() volatile {
-          return (raw & (0x1 << 2)) >> 2;
+        __attribute__((always_inline)) bool getCFDEN() volatile {
+          return ((raw & (0x1 << 2)) >> 2);
         }
         /**
           Sets Clock Failure Detector Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setCFDEN(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 2)) | ((value << 2) & (0x1 << 2));
+        __attribute__((always_inline)) Register& setCFDEN(bool value) volatile {
+          raw = (raw & ~(0x1 << 2)) | ((((value)) << 2) & (0x1 << 2));
+          return *(Register*)this;
         }
         /**
           Gets Backup Clock Select
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getBKUPCLK() volatile {
-          return (raw & (0x1 << 4)) >> 4;
+        __attribute__((always_inline)) bool getBKUPCLK() volatile {
+          return ((raw & (0x1 << 4)) >> 4);
         }
         /**
           Sets Backup Clock Select
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setBKUPCLK(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 4)) | ((value << 4) & (0x1 << 4));
+        __attribute__((always_inline)) Register& setBKUPCLK(bool value) volatile {
+          raw = (raw & ~(0x1 << 4)) | ((((value)) << 4) & (0x1 << 4));
+          return *(Register*)this;
         }
       };
+    };
+    
+    /**
+      Sleep Mode
+    */
+    namespace SLEEP {
+      enum class IDLE {
+        // The CPU clock domain is stopped
+        CPU = 0x0,
+        // The CPU and AHB clock domains are stopped
+        AHB = 0x1,
+        // The CPU, AHB and APB clock domains are stopped
+        APB = 0x2,
+      };
       
-      /**
-        Sleep Mode
-      */
-      class SLEEP {
+      class Register {
         volatile unsigned char raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -55,27 +75,43 @@ namespace target {
         }
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
+        }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
         }
         /**
           Gets Idle Mode Configuration
-          @return value in range 0..3
+          @return enumeration value:
+          target::pm::SLEEP::IDLE::CPU (0x0) The CPU clock domain is stopped
+          target::pm::SLEEP::IDLE::AHB (0x1) The CPU and AHB clock domains are stopped
+          target::pm::SLEEP::IDLE::APB (0x2) The CPU, AHB and APB clock domains are stopped
         */
-        __attribute__((always_inline)) unsigned long getIDLE() volatile {
-          return (raw & (0x3 << 0)) >> 0;
+        __attribute__((always_inline)) target::pm::SLEEP::IDLE getIDLE() volatile {
+          return static_cast<target::pm::SLEEP::IDLE>((raw & (0x3 << 0)) >> 0);
         }
         /**
           Sets Idle Mode Configuration
-          @param value in range 0..3
+          @param value enumeration value:
+          target::pm::SLEEP::IDLE::CPU (0x0) The CPU clock domain is stopped
+          target::pm::SLEEP::IDLE::AHB (0x1) The CPU and AHB clock domains are stopped
+          target::pm::SLEEP::IDLE::APB (0x2) The CPU, AHB and APB clock domains are stopped
         */
-        __attribute__((always_inline)) unsigned long setIDLE(unsigned long value) volatile {
-          raw = (raw & ~(0x3 << 0)) | ((value << 0) & (0x3 << 0));
+        __attribute__((always_inline)) Register& setIDLE(target::pm::SLEEP::IDLE value) volatile {
+          raw = (raw & ~(0x3 << 0)) | (((static_cast<unsigned long>(value)) << 0) & (0x3 << 0));
+          return *(Register*)this;
         }
       };
-      
-      /**
-        External Reset Controller
-      */
-      class EXTCTRL {
+    };
+    
+    /**
+      External Reset Controller
+    */
+    namespace EXTCTRL {
+      class Register {
         volatile unsigned char raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -83,27 +119,56 @@ namespace target {
         }
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
+        }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
         }
         /**
           Gets External Reset Disable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getSETDIS() volatile {
-          return (raw & (0x1 << 0)) >> 0;
+        __attribute__((always_inline)) bool getSETDIS() volatile {
+          return ((raw & (0x1 << 0)) >> 0);
         }
         /**
           Sets External Reset Disable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setSETDIS(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 0)) | ((value << 0) & (0x1 << 0));
+        __attribute__((always_inline)) Register& setSETDIS(bool value) volatile {
+          raw = (raw & ~(0x1 << 0)) | ((((value)) << 0) & (0x1 << 0));
+          return *(Register*)this;
         }
       };
+    };
+    
+    /**
+      CPU Clock Select
+    */
+    namespace CPUSEL {
+      enum class CPUDIV {
+        // Divide by 1
+        DIV1 = 0x0,
+        // Divide by 2
+        DIV2 = 0x1,
+        // Divide by 4
+        DIV4 = 0x2,
+        // Divide by 8
+        DIV8 = 0x3,
+        // Divide by 16
+        DIV16 = 0x4,
+        // Divide by 32
+        DIV32 = 0x5,
+        // Divide by 64
+        DIV64 = 0x6,
+        // Divide by 128
+        DIV128 = 0x7,
+      };
       
-      /**
-        CPU Clock Select
-      */
-      class CPUSEL {
+      class Register {
         volatile unsigned char raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -111,27 +176,72 @@ namespace target {
         }
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
+        }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
         }
         /**
           Gets CPU Prescaler Selection
-          @return value in range 0..7
+          @return enumeration value:
+          target::pm::CPUSEL::CPUDIV::DIV1 (0x0) Divide by 1
+          target::pm::CPUSEL::CPUDIV::DIV2 (0x1) Divide by 2
+          target::pm::CPUSEL::CPUDIV::DIV4 (0x2) Divide by 4
+          target::pm::CPUSEL::CPUDIV::DIV8 (0x3) Divide by 8
+          target::pm::CPUSEL::CPUDIV::DIV16 (0x4) Divide by 16
+          target::pm::CPUSEL::CPUDIV::DIV32 (0x5) Divide by 32
+          target::pm::CPUSEL::CPUDIV::DIV64 (0x6) Divide by 64
+          target::pm::CPUSEL::CPUDIV::DIV128 (0x7) Divide by 128
         */
-        __attribute__((always_inline)) unsigned long getCPUDIV() volatile {
-          return (raw & (0x7 << 0)) >> 0;
+        __attribute__((always_inline)) target::pm::CPUSEL::CPUDIV getCPUDIV() volatile {
+          return static_cast<target::pm::CPUSEL::CPUDIV>((raw & (0x7 << 0)) >> 0);
         }
         /**
           Sets CPU Prescaler Selection
-          @param value in range 0..7
+          @param value enumeration value:
+          target::pm::CPUSEL::CPUDIV::DIV1 (0x0) Divide by 1
+          target::pm::CPUSEL::CPUDIV::DIV2 (0x1) Divide by 2
+          target::pm::CPUSEL::CPUDIV::DIV4 (0x2) Divide by 4
+          target::pm::CPUSEL::CPUDIV::DIV8 (0x3) Divide by 8
+          target::pm::CPUSEL::CPUDIV::DIV16 (0x4) Divide by 16
+          target::pm::CPUSEL::CPUDIV::DIV32 (0x5) Divide by 32
+          target::pm::CPUSEL::CPUDIV::DIV64 (0x6) Divide by 64
+          target::pm::CPUSEL::CPUDIV::DIV128 (0x7) Divide by 128
         */
-        __attribute__((always_inline)) unsigned long setCPUDIV(unsigned long value) volatile {
-          raw = (raw & ~(0x7 << 0)) | ((value << 0) & (0x7 << 0));
+        __attribute__((always_inline)) Register& setCPUDIV(target::pm::CPUSEL::CPUDIV value) volatile {
+          raw = (raw & ~(0x7 << 0)) | (((static_cast<unsigned long>(value)) << 0) & (0x7 << 0));
+          return *(Register*)this;
         }
       };
+    };
+    
+    /**
+      APBA Clock Select
+    */
+    namespace APBASEL {
+      enum class APBADIV {
+        // Divide by 1
+        DIV1 = 0x0,
+        // Divide by 2
+        DIV2 = 0x1,
+        // Divide by 4
+        DIV4 = 0x2,
+        // Divide by 8
+        DIV8 = 0x3,
+        // Divide by 16
+        DIV16 = 0x4,
+        // Divide by 32
+        DIV32 = 0x5,
+        // Divide by 64
+        DIV64 = 0x6,
+        // Divide by 128
+        DIV128 = 0x7,
+      };
       
-      /**
-        APBA Clock Select
-      */
-      class APBASEL {
+      class Register {
         volatile unsigned char raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -139,27 +249,72 @@ namespace target {
         }
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
+        }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
         }
         /**
           Gets APBA Prescaler Selection
-          @return value in range 0..7
+          @return enumeration value:
+          target::pm::APBASEL::APBADIV::DIV1 (0x0) Divide by 1
+          target::pm::APBASEL::APBADIV::DIV2 (0x1) Divide by 2
+          target::pm::APBASEL::APBADIV::DIV4 (0x2) Divide by 4
+          target::pm::APBASEL::APBADIV::DIV8 (0x3) Divide by 8
+          target::pm::APBASEL::APBADIV::DIV16 (0x4) Divide by 16
+          target::pm::APBASEL::APBADIV::DIV32 (0x5) Divide by 32
+          target::pm::APBASEL::APBADIV::DIV64 (0x6) Divide by 64
+          target::pm::APBASEL::APBADIV::DIV128 (0x7) Divide by 128
         */
-        __attribute__((always_inline)) unsigned long getAPBADIV() volatile {
-          return (raw & (0x7 << 0)) >> 0;
+        __attribute__((always_inline)) target::pm::APBASEL::APBADIV getAPBADIV() volatile {
+          return static_cast<target::pm::APBASEL::APBADIV>((raw & (0x7 << 0)) >> 0);
         }
         /**
           Sets APBA Prescaler Selection
-          @param value in range 0..7
+          @param value enumeration value:
+          target::pm::APBASEL::APBADIV::DIV1 (0x0) Divide by 1
+          target::pm::APBASEL::APBADIV::DIV2 (0x1) Divide by 2
+          target::pm::APBASEL::APBADIV::DIV4 (0x2) Divide by 4
+          target::pm::APBASEL::APBADIV::DIV8 (0x3) Divide by 8
+          target::pm::APBASEL::APBADIV::DIV16 (0x4) Divide by 16
+          target::pm::APBASEL::APBADIV::DIV32 (0x5) Divide by 32
+          target::pm::APBASEL::APBADIV::DIV64 (0x6) Divide by 64
+          target::pm::APBASEL::APBADIV::DIV128 (0x7) Divide by 128
         */
-        __attribute__((always_inline)) unsigned long setAPBADIV(unsigned long value) volatile {
-          raw = (raw & ~(0x7 << 0)) | ((value << 0) & (0x7 << 0));
+        __attribute__((always_inline)) Register& setAPBADIV(target::pm::APBASEL::APBADIV value) volatile {
+          raw = (raw & ~(0x7 << 0)) | (((static_cast<unsigned long>(value)) << 0) & (0x7 << 0));
+          return *(Register*)this;
         }
       };
+    };
+    
+    /**
+      APBB Clock Select
+    */
+    namespace APBBSEL {
+      enum class APBBDIV {
+        // Divide by 1
+        DIV1 = 0x0,
+        // Divide by 2
+        DIV2 = 0x1,
+        // Divide by 4
+        DIV4 = 0x2,
+        // Divide by 8
+        DIV8 = 0x3,
+        // Divide by 16
+        DIV16 = 0x4,
+        // Divide by 32
+        DIV32 = 0x5,
+        // Divide by 64
+        DIV64 = 0x6,
+        // Divide by 128
+        DIV128 = 0x7,
+      };
       
-      /**
-        APBB Clock Select
-      */
-      class APBBSEL {
+      class Register {
         volatile unsigned char raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -167,27 +322,72 @@ namespace target {
         }
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
+        }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
         }
         /**
           Gets APBB Prescaler Selection
-          @return value in range 0..7
+          @return enumeration value:
+          target::pm::APBBSEL::APBBDIV::DIV1 (0x0) Divide by 1
+          target::pm::APBBSEL::APBBDIV::DIV2 (0x1) Divide by 2
+          target::pm::APBBSEL::APBBDIV::DIV4 (0x2) Divide by 4
+          target::pm::APBBSEL::APBBDIV::DIV8 (0x3) Divide by 8
+          target::pm::APBBSEL::APBBDIV::DIV16 (0x4) Divide by 16
+          target::pm::APBBSEL::APBBDIV::DIV32 (0x5) Divide by 32
+          target::pm::APBBSEL::APBBDIV::DIV64 (0x6) Divide by 64
+          target::pm::APBBSEL::APBBDIV::DIV128 (0x7) Divide by 128
         */
-        __attribute__((always_inline)) unsigned long getAPBBDIV() volatile {
-          return (raw & (0x7 << 0)) >> 0;
+        __attribute__((always_inline)) target::pm::APBBSEL::APBBDIV getAPBBDIV() volatile {
+          return static_cast<target::pm::APBBSEL::APBBDIV>((raw & (0x7 << 0)) >> 0);
         }
         /**
           Sets APBB Prescaler Selection
-          @param value in range 0..7
+          @param value enumeration value:
+          target::pm::APBBSEL::APBBDIV::DIV1 (0x0) Divide by 1
+          target::pm::APBBSEL::APBBDIV::DIV2 (0x1) Divide by 2
+          target::pm::APBBSEL::APBBDIV::DIV4 (0x2) Divide by 4
+          target::pm::APBBSEL::APBBDIV::DIV8 (0x3) Divide by 8
+          target::pm::APBBSEL::APBBDIV::DIV16 (0x4) Divide by 16
+          target::pm::APBBSEL::APBBDIV::DIV32 (0x5) Divide by 32
+          target::pm::APBBSEL::APBBDIV::DIV64 (0x6) Divide by 64
+          target::pm::APBBSEL::APBBDIV::DIV128 (0x7) Divide by 128
         */
-        __attribute__((always_inline)) unsigned long setAPBBDIV(unsigned long value) volatile {
-          raw = (raw & ~(0x7 << 0)) | ((value << 0) & (0x7 << 0));
+        __attribute__((always_inline)) Register& setAPBBDIV(target::pm::APBBSEL::APBBDIV value) volatile {
+          raw = (raw & ~(0x7 << 0)) | (((static_cast<unsigned long>(value)) << 0) & (0x7 << 0));
+          return *(Register*)this;
         }
       };
+    };
+    
+    /**
+      APBC Clock Select
+    */
+    namespace APBCSEL {
+      enum class APBCDIV {
+        // Divide by 1
+        DIV1 = 0x0,
+        // Divide by 2
+        DIV2 = 0x1,
+        // Divide by 4
+        DIV4 = 0x2,
+        // Divide by 8
+        DIV8 = 0x3,
+        // Divide by 16
+        DIV16 = 0x4,
+        // Divide by 32
+        DIV32 = 0x5,
+        // Divide by 64
+        DIV64 = 0x6,
+        // Divide by 128
+        DIV128 = 0x7,
+      };
       
-      /**
-        APBC Clock Select
-      */
-      class APBCSEL {
+      class Register {
         volatile unsigned char raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -195,27 +395,53 @@ namespace target {
         }
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
+        }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
         }
         /**
           Gets APBC Prescaler Selection
-          @return value in range 0..7
+          @return enumeration value:
+          target::pm::APBCSEL::APBCDIV::DIV1 (0x0) Divide by 1
+          target::pm::APBCSEL::APBCDIV::DIV2 (0x1) Divide by 2
+          target::pm::APBCSEL::APBCDIV::DIV4 (0x2) Divide by 4
+          target::pm::APBCSEL::APBCDIV::DIV8 (0x3) Divide by 8
+          target::pm::APBCSEL::APBCDIV::DIV16 (0x4) Divide by 16
+          target::pm::APBCSEL::APBCDIV::DIV32 (0x5) Divide by 32
+          target::pm::APBCSEL::APBCDIV::DIV64 (0x6) Divide by 64
+          target::pm::APBCSEL::APBCDIV::DIV128 (0x7) Divide by 128
         */
-        __attribute__((always_inline)) unsigned long getAPBCDIV() volatile {
-          return (raw & (0x7 << 0)) >> 0;
+        __attribute__((always_inline)) target::pm::APBCSEL::APBCDIV getAPBCDIV() volatile {
+          return static_cast<target::pm::APBCSEL::APBCDIV>((raw & (0x7 << 0)) >> 0);
         }
         /**
           Sets APBC Prescaler Selection
-          @param value in range 0..7
+          @param value enumeration value:
+          target::pm::APBCSEL::APBCDIV::DIV1 (0x0) Divide by 1
+          target::pm::APBCSEL::APBCDIV::DIV2 (0x1) Divide by 2
+          target::pm::APBCSEL::APBCDIV::DIV4 (0x2) Divide by 4
+          target::pm::APBCSEL::APBCDIV::DIV8 (0x3) Divide by 8
+          target::pm::APBCSEL::APBCDIV::DIV16 (0x4) Divide by 16
+          target::pm::APBCSEL::APBCDIV::DIV32 (0x5) Divide by 32
+          target::pm::APBCSEL::APBCDIV::DIV64 (0x6) Divide by 64
+          target::pm::APBCSEL::APBCDIV::DIV128 (0x7) Divide by 128
         */
-        __attribute__((always_inline)) unsigned long setAPBCDIV(unsigned long value) volatile {
-          raw = (raw & ~(0x7 << 0)) | ((value << 0) & (0x7 << 0));
+        __attribute__((always_inline)) Register& setAPBCDIV(target::pm::APBCSEL::APBCDIV value) volatile {
+          raw = (raw & ~(0x7 << 0)) | (((static_cast<unsigned long>(value)) << 0) & (0x7 << 0));
+          return *(Register*)this;
         }
       };
-      
-      /**
-        AHB Mask
-      */
-      class AHBMASK {
+    };
+    
+    /**
+      AHB Mask
+    */
+    namespace AHBMASK {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -225,97 +451,97 @@ namespace target {
           return raw;
         }
         /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
+        /**
           Gets HPB0 AHB Clock Mask
           @param index in range 0..2
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getHPB(int index) volatile {
-          return (raw & (0x1 << (0 + 1 * (index - 0)))) >> (0 + 1 * (index - 0));
+        __attribute__((always_inline)) bool getHPB(int index) volatile {
+          return ((raw & (0x1 << (0 + 1 * (index - 0)))) >> (0 + 1 * (index - 0)));
         }
         /**
           Sets HPB0 AHB Clock Mask
           @param index in range 0..2
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setHPB(int index, unsigned long value) volatile {
-          raw = (raw & ~(0x1 << (0 + 1 * (index - 0)))) | ((value << (0 + 1 * (index - 0))) & (0x1 << (0 + 1 * (index - 0))));
-        }
-        /**
-          Gets HPB0 AHB Clock Mask
-          @return value in range 0..7
-        */
-        __attribute__((always_inline)) unsigned long getHPB() volatile {
-          return (raw & (0x7 << 0)) >> 0;
-        }
-        /**
-          Sets HPB0 AHB Clock Mask
-          @param value in range 0..7
-        */
-        __attribute__((always_inline)) unsigned long setHPB(unsigned long value) volatile {
-          raw = (raw & ~(0x7 << 0)) | ((value << 0) & (0x7 << 0));
+        __attribute__((always_inline)) Register& setHPB(int index, bool value) volatile {
+          raw = (raw & ~(0x1 << (0 + 1 * (index - 0)))) | ((((value)) << (0 + 1 * (index - 0))) & (0x1 << (0 + 1 * (index - 0))));
+          return *(Register*)this;
         }
         /**
           Gets DSU AHB Clock Mask
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getDSU() volatile {
-          return (raw & (0x1 << 3)) >> 3;
+        __attribute__((always_inline)) bool getDSU() volatile {
+          return ((raw & (0x1 << 3)) >> 3);
         }
         /**
           Sets DSU AHB Clock Mask
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setDSU(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 3)) | ((value << 3) & (0x1 << 3));
+        __attribute__((always_inline)) Register& setDSU(bool value) volatile {
+          raw = (raw & ~(0x1 << 3)) | ((((value)) << 3) & (0x1 << 3));
+          return *(Register*)this;
         }
         /**
           Gets NVMCTRL AHB Clock Mask
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getNVMCTRL() volatile {
-          return (raw & (0x1 << 4)) >> 4;
+        __attribute__((always_inline)) bool getNVMCTRL() volatile {
+          return ((raw & (0x1 << 4)) >> 4);
         }
         /**
           Sets NVMCTRL AHB Clock Mask
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setNVMCTRL(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 4)) | ((value << 4) & (0x1 << 4));
+        __attribute__((always_inline)) Register& setNVMCTRL(bool value) volatile {
+          raw = (raw & ~(0x1 << 4)) | ((((value)) << 4) & (0x1 << 4));
+          return *(Register*)this;
         }
         /**
           Gets DMAC AHB Clock Mask
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getDMAC() volatile {
-          return (raw & (0x1 << 5)) >> 5;
+        __attribute__((always_inline)) bool getDMAC() volatile {
+          return ((raw & (0x1 << 5)) >> 5);
         }
         /**
           Sets DMAC AHB Clock Mask
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setDMAC(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 5)) | ((value << 5) & (0x1 << 5));
+        __attribute__((always_inline)) Register& setDMAC(bool value) volatile {
+          raw = (raw & ~(0x1 << 5)) | ((((value)) << 5) & (0x1 << 5));
+          return *(Register*)this;
         }
         /**
           Gets USB AHB Clock Mask
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getUSB() volatile {
-          return (raw & (0x1 << 6)) >> 6;
+        __attribute__((always_inline)) bool getUSB() volatile {
+          return ((raw & (0x1 << 6)) >> 6);
         }
         /**
           Sets USB AHB Clock Mask
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setUSB(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 6)) | ((value << 6) & (0x1 << 6));
+        __attribute__((always_inline)) Register& setUSB(bool value) volatile {
+          raw = (raw & ~(0x1 << 6)) | ((((value)) << 6) & (0x1 << 6));
+          return *(Register*)this;
         }
       };
-      
-      /**
-        APBA Mask
-      */
-      class APBAMASK {
+    };
+    
+    /**
+      APBA Mask
+    */
+    namespace APBAMASK {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -323,111 +549,127 @@ namespace target {
         }
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
+        }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
         }
         /**
           Gets PAC0 APB Clock Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getPAC0() volatile {
-          return (raw & (0x1 << 0)) >> 0;
+        __attribute__((always_inline)) bool getPAC0() volatile {
+          return ((raw & (0x1 << 0)) >> 0);
         }
         /**
           Sets PAC0 APB Clock Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setPAC0(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 0)) | ((value << 0) & (0x1 << 0));
+        __attribute__((always_inline)) Register& setPAC0(bool value) volatile {
+          raw = (raw & ~(0x1 << 0)) | ((((value)) << 0) & (0x1 << 0));
+          return *(Register*)this;
         }
         /**
           Gets PM APB Clock Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getPM() volatile {
-          return (raw & (0x1 << 1)) >> 1;
+        __attribute__((always_inline)) bool getPM() volatile {
+          return ((raw & (0x1 << 1)) >> 1);
         }
         /**
           Sets PM APB Clock Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setPM(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 1)) | ((value << 1) & (0x1 << 1));
+        __attribute__((always_inline)) Register& setPM(bool value) volatile {
+          raw = (raw & ~(0x1 << 1)) | ((((value)) << 1) & (0x1 << 1));
+          return *(Register*)this;
         }
         /**
           Gets SYSCTRL APB Clock Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getSYSCTRL() volatile {
-          return (raw & (0x1 << 2)) >> 2;
+        __attribute__((always_inline)) bool getSYSCTRL() volatile {
+          return ((raw & (0x1 << 2)) >> 2);
         }
         /**
           Sets SYSCTRL APB Clock Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setSYSCTRL(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 2)) | ((value << 2) & (0x1 << 2));
+        __attribute__((always_inline)) Register& setSYSCTRL(bool value) volatile {
+          raw = (raw & ~(0x1 << 2)) | ((((value)) << 2) & (0x1 << 2));
+          return *(Register*)this;
         }
         /**
           Gets GCLK APB Clock Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getGCLK() volatile {
-          return (raw & (0x1 << 3)) >> 3;
+        __attribute__((always_inline)) bool getGCLK() volatile {
+          return ((raw & (0x1 << 3)) >> 3);
         }
         /**
           Sets GCLK APB Clock Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setGCLK(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 3)) | ((value << 3) & (0x1 << 3));
+        __attribute__((always_inline)) Register& setGCLK(bool value) volatile {
+          raw = (raw & ~(0x1 << 3)) | ((((value)) << 3) & (0x1 << 3));
+          return *(Register*)this;
         }
         /**
           Gets WDT APB Clock Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getWDT() volatile {
-          return (raw & (0x1 << 4)) >> 4;
+        __attribute__((always_inline)) bool getWDT() volatile {
+          return ((raw & (0x1 << 4)) >> 4);
         }
         /**
           Sets WDT APB Clock Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setWDT(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 4)) | ((value << 4) & (0x1 << 4));
+        __attribute__((always_inline)) Register& setWDT(bool value) volatile {
+          raw = (raw & ~(0x1 << 4)) | ((((value)) << 4) & (0x1 << 4));
+          return *(Register*)this;
         }
         /**
           Gets RTC APB Clock Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getRTC() volatile {
-          return (raw & (0x1 << 5)) >> 5;
+        __attribute__((always_inline)) bool getRTC() volatile {
+          return ((raw & (0x1 << 5)) >> 5);
         }
         /**
           Sets RTC APB Clock Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setRTC(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 5)) | ((value << 5) & (0x1 << 5));
+        __attribute__((always_inline)) Register& setRTC(bool value) volatile {
+          raw = (raw & ~(0x1 << 5)) | ((((value)) << 5) & (0x1 << 5));
+          return *(Register*)this;
         }
         /**
           Gets EIC APB Clock Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getEIC() volatile {
-          return (raw & (0x1 << 6)) >> 6;
+        __attribute__((always_inline)) bool getEIC() volatile {
+          return ((raw & (0x1 << 6)) >> 6);
         }
         /**
           Sets EIC APB Clock Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setEIC(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 6)) | ((value << 6) & (0x1 << 6));
+        __attribute__((always_inline)) Register& setEIC(bool value) volatile {
+          raw = (raw & ~(0x1 << 6)) | ((((value)) << 6) & (0x1 << 6));
+          return *(Register*)this;
         }
       };
-      
-      /**
-        APBB Mask
-      */
-      class APBBMASK {
+    };
+    
+    /**
+      APBB Mask
+    */
+    namespace APBBMASK {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -435,111 +677,127 @@ namespace target {
         }
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
+        }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
         }
         /**
           Gets PAC1 APB Clock Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getPAC1() volatile {
-          return (raw & (0x1 << 0)) >> 0;
+        __attribute__((always_inline)) bool getPAC1() volatile {
+          return ((raw & (0x1 << 0)) >> 0);
         }
         /**
           Sets PAC1 APB Clock Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setPAC1(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 0)) | ((value << 0) & (0x1 << 0));
+        __attribute__((always_inline)) Register& setPAC1(bool value) volatile {
+          raw = (raw & ~(0x1 << 0)) | ((((value)) << 0) & (0x1 << 0));
+          return *(Register*)this;
         }
         /**
           Gets DSU APB Clock Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getDSU() volatile {
-          return (raw & (0x1 << 1)) >> 1;
+        __attribute__((always_inline)) bool getDSU() volatile {
+          return ((raw & (0x1 << 1)) >> 1);
         }
         /**
           Sets DSU APB Clock Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setDSU(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 1)) | ((value << 1) & (0x1 << 1));
+        __attribute__((always_inline)) Register& setDSU(bool value) volatile {
+          raw = (raw & ~(0x1 << 1)) | ((((value)) << 1) & (0x1 << 1));
+          return *(Register*)this;
         }
         /**
           Gets NVMCTRL APB Clock Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getNVMCTRL() volatile {
-          return (raw & (0x1 << 2)) >> 2;
+        __attribute__((always_inline)) bool getNVMCTRL() volatile {
+          return ((raw & (0x1 << 2)) >> 2);
         }
         /**
           Sets NVMCTRL APB Clock Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setNVMCTRL(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 2)) | ((value << 2) & (0x1 << 2));
+        __attribute__((always_inline)) Register& setNVMCTRL(bool value) volatile {
+          raw = (raw & ~(0x1 << 2)) | ((((value)) << 2) & (0x1 << 2));
+          return *(Register*)this;
         }
         /**
           Gets PORT APB Clock Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getPORT() volatile {
-          return (raw & (0x1 << 3)) >> 3;
+        __attribute__((always_inline)) bool getPORT() volatile {
+          return ((raw & (0x1 << 3)) >> 3);
         }
         /**
           Sets PORT APB Clock Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setPORT(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 3)) | ((value << 3) & (0x1 << 3));
+        __attribute__((always_inline)) Register& setPORT(bool value) volatile {
+          raw = (raw & ~(0x1 << 3)) | ((((value)) << 3) & (0x1 << 3));
+          return *(Register*)this;
         }
         /**
           Gets DMAC APB Clock Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getDMAC() volatile {
-          return (raw & (0x1 << 4)) >> 4;
+        __attribute__((always_inline)) bool getDMAC() volatile {
+          return ((raw & (0x1 << 4)) >> 4);
         }
         /**
           Sets DMAC APB Clock Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setDMAC(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 4)) | ((value << 4) & (0x1 << 4));
+        __attribute__((always_inline)) Register& setDMAC(bool value) volatile {
+          raw = (raw & ~(0x1 << 4)) | ((((value)) << 4) & (0x1 << 4));
+          return *(Register*)this;
         }
         /**
           Gets USB APB Clock Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getUSB() volatile {
-          return (raw & (0x1 << 5)) >> 5;
+        __attribute__((always_inline)) bool getUSB() volatile {
+          return ((raw & (0x1 << 5)) >> 5);
         }
         /**
           Sets USB APB Clock Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setUSB(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 5)) | ((value << 5) & (0x1 << 5));
+        __attribute__((always_inline)) Register& setUSB(bool value) volatile {
+          raw = (raw & ~(0x1 << 5)) | ((((value)) << 5) & (0x1 << 5));
+          return *(Register*)this;
         }
         /**
           Gets HMATRIX APB Clock Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getHMATRIX() volatile {
-          return (raw & (0x1 << 6)) >> 6;
+        __attribute__((always_inline)) bool getHMATRIX() volatile {
+          return ((raw & (0x1 << 6)) >> 6);
         }
         /**
           Sets HMATRIX APB Clock Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setHMATRIX(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 6)) | ((value << 6) & (0x1 << 6));
+        __attribute__((always_inline)) Register& setHMATRIX(bool value) volatile {
+          raw = (raw & ~(0x1 << 6)) | ((((value)) << 6) & (0x1 << 6));
+          return *(Register*)this;
         }
       };
-      
-      /**
-        APBC Mask
-      */
-      class APBCMASK {
+    };
+    
+    /**
+      APBC Mask
+    */
+    namespace APBCMASK {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -549,169 +807,159 @@ namespace target {
           return raw;
         }
         /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
+        /**
           Gets SERCOM0 APB Clock Enable
           @param index in range 0..1
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getSERCOM(int index) volatile {
-          return (raw & (0x1 << (2 + 1 * (index - 0)))) >> (2 + 1 * (index - 0));
+        __attribute__((always_inline)) bool getSERCOM(int index) volatile {
+          return ((raw & (0x1 << (2 + 1 * (index - 0)))) >> (2 + 1 * (index - 0)));
         }
         /**
           Sets SERCOM0 APB Clock Enable
           @param index in range 0..1
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setSERCOM(int index, unsigned long value) volatile {
-          raw = (raw & ~(0x1 << (2 + 1 * (index - 0)))) | ((value << (2 + 1 * (index - 0))) & (0x1 << (2 + 1 * (index - 0))));
-        }
-        /**
-          Gets SERCOM0 APB Clock Enable
-          @return value in range 0..3
-        */
-        __attribute__((always_inline)) unsigned long getSERCOM() volatile {
-          return (raw & (0x3 << 2)) >> 2;
-        }
-        /**
-          Sets SERCOM0 APB Clock Enable
-          @param value in range 0..3
-        */
-        __attribute__((always_inline)) unsigned long setSERCOM(unsigned long value) volatile {
-          raw = (raw & ~(0x3 << 2)) | ((value << 2) & (0x3 << 2));
+        __attribute__((always_inline)) Register& setSERCOM(int index, bool value) volatile {
+          raw = (raw & ~(0x1 << (2 + 1 * (index - 0)))) | ((((value)) << (2 + 1 * (index - 0))) & (0x1 << (2 + 1 * (index - 0))));
+          return *(Register*)this;
         }
         /**
           Gets TC1 APB Clock Enable
           @param index in range 1..2
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getTC(int index) volatile {
-          return (raw & (0x1 << (6 + 1 * (index - 1)))) >> (6 + 1 * (index - 1));
+        __attribute__((always_inline)) bool getTC(int index) volatile {
+          return ((raw & (0x1 << (6 + 1 * (index - 1)))) >> (6 + 1 * (index - 1)));
         }
         /**
           Sets TC1 APB Clock Enable
           @param index in range 1..2
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setTC(int index, unsigned long value) volatile {
-          raw = (raw & ~(0x1 << (6 + 1 * (index - 1)))) | ((value << (6 + 1 * (index - 1))) & (0x1 << (6 + 1 * (index - 1))));
-        }
-        /**
-          Gets TC1 APB Clock Enable
-          @return value in range 0..3
-        */
-        __attribute__((always_inline)) unsigned long getTC() volatile {
-          return (raw & (0x3 << 6)) >> 6;
-        }
-        /**
-          Sets TC1 APB Clock Enable
-          @param value in range 0..3
-        */
-        __attribute__((always_inline)) unsigned long setTC(unsigned long value) volatile {
-          raw = (raw & ~(0x3 << 6)) | ((value << 6) & (0x3 << 6));
+        __attribute__((always_inline)) Register& setTC(int index, bool value) volatile {
+          raw = (raw & ~(0x1 << (6 + 1 * (index - 1)))) | ((((value)) << (6 + 1 * (index - 1))) & (0x1 << (6 + 1 * (index - 1))));
+          return *(Register*)this;
         }
         /**
           Gets PAC2 APB Clock Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getPAC2() volatile {
-          return (raw & (0x1 << 0)) >> 0;
+        __attribute__((always_inline)) bool getPAC2() volatile {
+          return ((raw & (0x1 << 0)) >> 0);
         }
         /**
           Sets PAC2 APB Clock Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setPAC2(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 0)) | ((value << 0) & (0x1 << 0));
+        __attribute__((always_inline)) Register& setPAC2(bool value) volatile {
+          raw = (raw & ~(0x1 << 0)) | ((((value)) << 0) & (0x1 << 0));
+          return *(Register*)this;
         }
         /**
           Gets EVSYS APB Clock Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getEVSYS() volatile {
-          return (raw & (0x1 << 1)) >> 1;
+        __attribute__((always_inline)) bool getEVSYS() volatile {
+          return ((raw & (0x1 << 1)) >> 1);
         }
         /**
           Sets EVSYS APB Clock Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setEVSYS(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 1)) | ((value << 1) & (0x1 << 1));
+        __attribute__((always_inline)) Register& setEVSYS(bool value) volatile {
+          raw = (raw & ~(0x1 << 1)) | ((((value)) << 1) & (0x1 << 1));
+          return *(Register*)this;
         }
         /**
           Gets TCC0 APB Clock Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getTCC0() volatile {
-          return (raw & (0x1 << 5)) >> 5;
+        __attribute__((always_inline)) bool getTCC0() volatile {
+          return ((raw & (0x1 << 5)) >> 5);
         }
         /**
           Sets TCC0 APB Clock Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setTCC0(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 5)) | ((value << 5) & (0x1 << 5));
+        __attribute__((always_inline)) Register& setTCC0(bool value) volatile {
+          raw = (raw & ~(0x1 << 5)) | ((((value)) << 5) & (0x1 << 5));
+          return *(Register*)this;
         }
         /**
           Gets ADC APB Clock Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getADC() volatile {
-          return (raw & (0x1 << 8)) >> 8;
+        __attribute__((always_inline)) bool getADC() volatile {
+          return ((raw & (0x1 << 8)) >> 8);
         }
         /**
           Sets ADC APB Clock Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setADC(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 8)) | ((value << 8) & (0x1 << 8));
+        __attribute__((always_inline)) Register& setADC(bool value) volatile {
+          raw = (raw & ~(0x1 << 8)) | ((((value)) << 8) & (0x1 << 8));
+          return *(Register*)this;
         }
         /**
           Gets AC APB Clock Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getAC() volatile {
-          return (raw & (0x1 << 9)) >> 9;
+        __attribute__((always_inline)) bool getAC() volatile {
+          return ((raw & (0x1 << 9)) >> 9);
         }
         /**
           Sets AC APB Clock Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setAC(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 9)) | ((value << 9) & (0x1 << 9));
+        __attribute__((always_inline)) Register& setAC(bool value) volatile {
+          raw = (raw & ~(0x1 << 9)) | ((((value)) << 9) & (0x1 << 9));
+          return *(Register*)this;
         }
         /**
           Gets DAC APB Clock Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getDAC() volatile {
-          return (raw & (0x1 << 10)) >> 10;
+        __attribute__((always_inline)) bool getDAC() volatile {
+          return ((raw & (0x1 << 10)) >> 10);
         }
         /**
           Sets DAC APB Clock Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setDAC(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 10)) | ((value << 10) & (0x1 << 10));
+        __attribute__((always_inline)) Register& setDAC(bool value) volatile {
+          raw = (raw & ~(0x1 << 10)) | ((((value)) << 10) & (0x1 << 10));
+          return *(Register*)this;
         }
         /**
           Gets PTC APB Clock Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getPTC() volatile {
-          return (raw & (0x1 << 11)) >> 11;
+        __attribute__((always_inline)) bool getPTC() volatile {
+          return ((raw & (0x1 << 11)) >> 11);
         }
         /**
           Sets PTC APB Clock Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setPTC(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 11)) | ((value << 11) & (0x1 << 11));
+        __attribute__((always_inline)) Register& setPTC(bool value) volatile {
+          raw = (raw & ~(0x1 << 11)) | ((((value)) << 11) & (0x1 << 11));
+          return *(Register*)this;
         }
       };
-      
-      /**
-        Interrupt Enable Clear
-      */
-      class INTENCLR {
+    };
+    
+    /**
+      Interrupt Enable Clear
+    */
+    namespace INTENCLR {
+      class Register {
         volatile unsigned char raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -719,41 +967,52 @@ namespace target {
         }
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
+        }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
         }
         /**
           Gets Clock Ready Interrupt Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getCKRDY() volatile {
-          return (raw & (0x1 << 0)) >> 0;
+        __attribute__((always_inline)) bool getCKRDY() volatile {
+          return ((raw & (0x1 << 0)) >> 0);
         }
         /**
           Sets Clock Ready Interrupt Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setCKRDY(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 0)) | ((value << 0) & (0x1 << 0));
+        __attribute__((always_inline)) Register& setCKRDY(bool value) volatile {
+          raw = (raw & ~(0x1 << 0)) | ((((value)) << 0) & (0x1 << 0));
+          return *(Register*)this;
         }
         /**
           Gets Clock Failure Detector Interrupt Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getCFD() volatile {
-          return (raw & (0x1 << 1)) >> 1;
+        __attribute__((always_inline)) bool getCFD() volatile {
+          return ((raw & (0x1 << 1)) >> 1);
         }
         /**
           Sets Clock Failure Detector Interrupt Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setCFD(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 1)) | ((value << 1) & (0x1 << 1));
+        __attribute__((always_inline)) Register& setCFD(bool value) volatile {
+          raw = (raw & ~(0x1 << 1)) | ((((value)) << 1) & (0x1 << 1));
+          return *(Register*)this;
         }
       };
-      
-      /**
-        Interrupt Enable Set
-      */
-      class INTENSET {
+    };
+    
+    /**
+      Interrupt Enable Set
+    */
+    namespace INTENSET {
+      class Register {
         volatile unsigned char raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -761,41 +1020,52 @@ namespace target {
         }
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
+        }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
         }
         /**
           Gets Clock Ready Interrupt Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getCKRDY() volatile {
-          return (raw & (0x1 << 0)) >> 0;
+        __attribute__((always_inline)) bool getCKRDY() volatile {
+          return ((raw & (0x1 << 0)) >> 0);
         }
         /**
           Sets Clock Ready Interrupt Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setCKRDY(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 0)) | ((value << 0) & (0x1 << 0));
+        __attribute__((always_inline)) Register& setCKRDY(bool value) volatile {
+          raw = (raw & ~(0x1 << 0)) | ((((value)) << 0) & (0x1 << 0));
+          return *(Register*)this;
         }
         /**
           Gets Clock Failure Detector Interrupt Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getCFD() volatile {
-          return (raw & (0x1 << 1)) >> 1;
+        __attribute__((always_inline)) bool getCFD() volatile {
+          return ((raw & (0x1 << 1)) >> 1);
         }
         /**
           Sets Clock Failure Detector Interrupt Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setCFD(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 1)) | ((value << 1) & (0x1 << 1));
+        __attribute__((always_inline)) Register& setCFD(bool value) volatile {
+          raw = (raw & ~(0x1 << 1)) | ((((value)) << 1) & (0x1 << 1));
+          return *(Register*)this;
         }
       };
-      
-      /**
-        Interrupt Flag Status and Clear
-      */
-      class INTFLAG {
+    };
+    
+    /**
+      Interrupt Flag Status and Clear
+    */
+    namespace INTFLAG {
+      class Register {
         volatile unsigned char raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -803,41 +1073,52 @@ namespace target {
         }
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
+        }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
         }
         /**
           Gets Clock Ready
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getCKRDY() volatile {
-          return (raw & (0x1 << 0)) >> 0;
+        __attribute__((always_inline)) bool getCKRDY() volatile {
+          return ((raw & (0x1 << 0)) >> 0);
         }
         /**
           Sets Clock Ready
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setCKRDY(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 0)) | ((value << 0) & (0x1 << 0));
+        __attribute__((always_inline)) Register& setCKRDY(bool value) volatile {
+          raw = (raw & ~(0x1 << 0)) | ((((value)) << 0) & (0x1 << 0));
+          return *(Register*)this;
         }
         /**
           Gets Clock Failure Detector
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getCFD() volatile {
-          return (raw & (0x1 << 1)) >> 1;
+        __attribute__((always_inline)) bool getCFD() volatile {
+          return ((raw & (0x1 << 1)) >> 1);
         }
         /**
           Sets Clock Failure Detector
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setCFD(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 1)) | ((value << 1) & (0x1 << 1));
+        __attribute__((always_inline)) Register& setCFD(bool value) volatile {
+          raw = (raw & ~(0x1 << 1)) | ((((value)) << 1) & (0x1 << 1));
+          return *(Register*)this;
         }
       };
-      
-      /**
-        Reset Cause
-      */
-      class RCAUSE {
+    };
+    
+    /**
+      Reset Cause
+    */
+    namespace RCAUSE {
+      class Register {
         volatile unsigned char raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -847,88 +1128,101 @@ namespace target {
           return raw;
         }
         /**
-          Gets Power On Reset
-          @return value in range 0..1
+          Sets register to zero
         */
-        __attribute__((always_inline)) unsigned long getPOR() volatile {
-          return (raw & (0x1 << 0)) >> 0;
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
+        /**
+          Gets Power On Reset
+          @return boolean value
+        */
+        __attribute__((always_inline)) bool getPOR() volatile {
+          return ((raw & (0x1 << 0)) >> 0);
         }
         /**
           Sets Power On Reset
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setPOR(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 0)) | ((value << 0) & (0x1 << 0));
+        __attribute__((always_inline)) Register& setPOR(bool value) volatile {
+          raw = (raw & ~(0x1 << 0)) | ((((value)) << 0) & (0x1 << 0));
+          return *(Register*)this;
         }
         /**
           Gets Brown Out 12 Detector Reset
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getBOD12() volatile {
-          return (raw & (0x1 << 1)) >> 1;
+        __attribute__((always_inline)) bool getBOD12() volatile {
+          return ((raw & (0x1 << 1)) >> 1);
         }
         /**
           Sets Brown Out 12 Detector Reset
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setBOD12(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 1)) | ((value << 1) & (0x1 << 1));
+        __attribute__((always_inline)) Register& setBOD12(bool value) volatile {
+          raw = (raw & ~(0x1 << 1)) | ((((value)) << 1) & (0x1 << 1));
+          return *(Register*)this;
         }
         /**
           Gets Brown Out 33 Detector Reset
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getBOD33() volatile {
-          return (raw & (0x1 << 2)) >> 2;
+        __attribute__((always_inline)) bool getBOD33() volatile {
+          return ((raw & (0x1 << 2)) >> 2);
         }
         /**
           Sets Brown Out 33 Detector Reset
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setBOD33(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 2)) | ((value << 2) & (0x1 << 2));
+        __attribute__((always_inline)) Register& setBOD33(bool value) volatile {
+          raw = (raw & ~(0x1 << 2)) | ((((value)) << 2) & (0x1 << 2));
+          return *(Register*)this;
         }
         /**
           Gets External Reset
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getEXT() volatile {
-          return (raw & (0x1 << 4)) >> 4;
+        __attribute__((always_inline)) bool getEXT() volatile {
+          return ((raw & (0x1 << 4)) >> 4);
         }
         /**
           Sets External Reset
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setEXT(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 4)) | ((value << 4) & (0x1 << 4));
+        __attribute__((always_inline)) Register& setEXT(bool value) volatile {
+          raw = (raw & ~(0x1 << 4)) | ((((value)) << 4) & (0x1 << 4));
+          return *(Register*)this;
         }
         /**
           Gets Watchdog Reset
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getWDT() volatile {
-          return (raw & (0x1 << 5)) >> 5;
+        __attribute__((always_inline)) bool getWDT() volatile {
+          return ((raw & (0x1 << 5)) >> 5);
         }
         /**
           Sets Watchdog Reset
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setWDT(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 5)) | ((value << 5) & (0x1 << 5));
+        __attribute__((always_inline)) Register& setWDT(bool value) volatile {
+          raw = (raw & ~(0x1 << 5)) | ((((value)) << 5) & (0x1 << 5));
+          return *(Register*)this;
         }
         /**
           Gets System Reset Request
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getSYST() volatile {
-          return (raw & (0x1 << 6)) >> 6;
+        __attribute__((always_inline)) bool getSYST() volatile {
+          return ((raw & (0x1 << 6)) >> 6);
         }
         /**
           Sets System Reset Request
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setSYST(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 6)) | ((value << 6) & (0x1 << 6));
+        __attribute__((always_inline)) Register& setSYST(bool value) volatile {
+          raw = (raw & ~(0x1 << 6)) | ((((value)) << 6) & (0x1 << 6));
+          return *(Register*)this;
         }
       };
     };
@@ -939,109 +1233,109 @@ namespace target {
           /**
             Control
           */
-          volatile reg::CTRL CTRL;
+          CTRL::Register CTRL;
         };
         struct {
-          volatile char _space_SLEEP[0x1];
+          char _space_SLEEP[0x1];
           /**
             Sleep Mode
           */
-          volatile reg::SLEEP SLEEP;
+          SLEEP::Register SLEEP;
         };
         struct {
-          volatile char _space_EXTCTRL[0x2];
+          char _space_EXTCTRL[0x2];
           /**
             External Reset Controller
           */
-          volatile reg::EXTCTRL EXTCTRL;
+          EXTCTRL::Register EXTCTRL;
         };
         struct {
-          volatile char _space_CPUSEL[0x8];
+          char _space_CPUSEL[0x8];
           /**
             CPU Clock Select
           */
-          volatile reg::CPUSEL CPUSEL;
+          CPUSEL::Register CPUSEL;
         };
         struct {
-          volatile char _space_APBASEL[0x9];
+          char _space_APBASEL[0x9];
           /**
             APBA Clock Select
           */
-          volatile reg::APBASEL APBASEL;
+          APBASEL::Register APBASEL;
         };
         struct {
-          volatile char _space_APBBSEL[0xa];
+          char _space_APBBSEL[0xa];
           /**
             APBB Clock Select
           */
-          volatile reg::APBBSEL APBBSEL;
+          APBBSEL::Register APBBSEL;
         };
         struct {
-          volatile char _space_APBCSEL[0xb];
+          char _space_APBCSEL[0xb];
           /**
             APBC Clock Select
           */
-          volatile reg::APBCSEL APBCSEL;
+          APBCSEL::Register APBCSEL;
         };
         struct {
-          volatile char _space_AHBMASK[0x14];
+          char _space_AHBMASK[0x14];
           /**
             AHB Mask
           */
-          volatile reg::AHBMASK AHBMASK;
+          AHBMASK::Register AHBMASK;
         };
         struct {
-          volatile char _space_APBAMASK[0x18];
+          char _space_APBAMASK[0x18];
           /**
             APBA Mask
           */
-          volatile reg::APBAMASK APBAMASK;
+          APBAMASK::Register APBAMASK;
         };
         struct {
-          volatile char _space_APBBMASK[0x1c];
+          char _space_APBBMASK[0x1c];
           /**
             APBB Mask
           */
-          volatile reg::APBBMASK APBBMASK;
+          APBBMASK::Register APBBMASK;
         };
         struct {
-          volatile char _space_APBCMASK[0x20];
+          char _space_APBCMASK[0x20];
           /**
             APBC Mask
           */
-          volatile reg::APBCMASK APBCMASK;
+          APBCMASK::Register APBCMASK;
         };
         struct {
-          volatile char _space_INTENCLR[0x34];
+          char _space_INTENCLR[0x34];
           /**
             Interrupt Enable Clear
           */
-          volatile reg::INTENCLR INTENCLR;
+          INTENCLR::Register INTENCLR;
         };
         struct {
-          volatile char _space_INTENSET[0x35];
+          char _space_INTENSET[0x35];
           /**
             Interrupt Enable Set
           */
-          volatile reg::INTENSET INTENSET;
+          INTENSET::Register INTENSET;
         };
         struct {
-          volatile char _space_INTFLAG[0x36];
+          char _space_INTFLAG[0x36];
           /**
             Interrupt Flag Status and Clear
           */
-          volatile reg::INTFLAG INTFLAG;
+          INTFLAG::Register INTFLAG;
         };
         struct {
-          volatile char _space_RCAUSE[0x38];
+          char _space_RCAUSE[0x38];
           /**
             Reset Cause
           */
-          volatile reg::RCAUSE RCAUSE;
+          RCAUSE::Register RCAUSE;
         };
       };
     };
   }
   
-  extern pm::Peripheral PM;
+  extern volatile pm::Peripheral PM;
 }

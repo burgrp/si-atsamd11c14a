@@ -1,11 +1,11 @@
 namespace target {
   namespace evsys {
-    namespace reg {
-      
-      /**
-        Control
-      */
-      class CTRL {
+    
+    /**
+      Control
+    */
+    namespace CTRL {
+      class Register {
         volatile unsigned char raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -15,39 +15,70 @@ namespace target {
           return raw;
         }
         /**
-          Gets Software Reset
-          @return value in range 0..1
+          Sets register to zero
         */
-        __attribute__((always_inline)) unsigned long getSWRST() volatile {
-          return (raw & (0x1 << 0)) >> 0;
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
+        /**
+          Gets Software Reset
+          @return boolean value
+        */
+        __attribute__((always_inline)) bool getSWRST() volatile {
+          return ((raw & (0x1 << 0)) >> 0);
         }
         /**
           Sets Software Reset
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setSWRST(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 0)) | ((value << 0) & (0x1 << 0));
+        __attribute__((always_inline)) Register& setSWRST(bool value) volatile {
+          raw = (raw & ~(0x1 << 0)) | ((((value)) << 0) & (0x1 << 0));
+          return *(Register*)this;
         }
         /**
           Gets Generic Clock Requests
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getGCLKREQ() volatile {
-          return (raw & (0x1 << 4)) >> 4;
+        __attribute__((always_inline)) bool getGCLKREQ() volatile {
+          return ((raw & (0x1 << 4)) >> 4);
         }
         /**
           Sets Generic Clock Requests
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setGCLKREQ(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 4)) | ((value << 4) & (0x1 << 4));
+        __attribute__((always_inline)) Register& setGCLKREQ(bool value) volatile {
+          raw = (raw & ~(0x1 << 4)) | ((((value)) << 4) & (0x1 << 4));
+          return *(Register*)this;
         }
       };
+    };
+    
+    /**
+      Channel
+    */
+    namespace CHANNEL {
+      enum class PATH {
+        // Synchronous path
+        SYNCHRONOUS = 0x0,
+        // Resynchronized path
+        RESYNCHRONIZED = 0x1,
+        // Asynchronous path
+        ASYNCHRONOUS = 0x2,
+      };
       
-      /**
-        Channel
-      */
-      class CHANNEL {
+      enum class EDGSEL {
+        // No event output when using the resynchronized or synchronous path
+        NO_EVT_OUTPUT = 0x0,
+        // Event detection only on the rising edge of the signal from the event generator when using the resynchronized or synchronous path
+        RISING_EDGE = 0x1,
+        // Event detection only on the falling edge of the signal from the event generator when using the resynchronized or synchronous path
+        FALLING_EDGE = 0x2,
+        // Event detection on rising and falling edges of the signal from the event generator when using the resynchronized or synchronous path
+        BOTH_EDGES = 0x3,
+      };
+      
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -57,81 +88,114 @@ namespace target {
           return raw;
         }
         /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
+        /**
           Gets Channel Selection
           @return value in range 0..7
         */
         __attribute__((always_inline)) unsigned long getCHANNEL() volatile {
-          return (raw & (0x7 << 0)) >> 0;
+          return ((raw & (0x7 << 0)) >> 0);
         }
         /**
           Sets Channel Selection
-          @param value in range 0..7
+          @param value value in range 0..7
         */
-        __attribute__((always_inline)) unsigned long setCHANNEL(unsigned long value) volatile {
-          raw = (raw & ~(0x7 << 0)) | ((value << 0) & (0x7 << 0));
+        __attribute__((always_inline)) Register& setCHANNEL(unsigned long value) volatile {
+          raw = (raw & ~(0x7 << 0)) | ((((value)) << 0) & (0x7 << 0));
+          return *(Register*)this;
         }
         /**
           Gets Software Event
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getSWEVT() volatile {
-          return (raw & (0x1 << 8)) >> 8;
+        __attribute__((always_inline)) bool getSWEVT() volatile {
+          return ((raw & (0x1 << 8)) >> 8);
         }
         /**
           Sets Software Event
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setSWEVT(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 8)) | ((value << 8) & (0x1 << 8));
+        __attribute__((always_inline)) Register& setSWEVT(bool value) volatile {
+          raw = (raw & ~(0x1 << 8)) | ((((value)) << 8) & (0x1 << 8));
+          return *(Register*)this;
         }
         /**
           Gets Event Generator Selection
           @return value in range 0..63
         */
         __attribute__((always_inline)) unsigned long getEVGEN() volatile {
-          return (raw & (0x3F << 16)) >> 16;
+          return ((raw & (0x3F << 16)) >> 16);
         }
         /**
           Sets Event Generator Selection
-          @param value in range 0..63
+          @param value value in range 0..63
         */
-        __attribute__((always_inline)) unsigned long setEVGEN(unsigned long value) volatile {
-          raw = (raw & ~(0x3F << 16)) | ((value << 16) & (0x3F << 16));
+        __attribute__((always_inline)) Register& setEVGEN(unsigned long value) volatile {
+          raw = (raw & ~(0x3F << 16)) | ((((value)) << 16) & (0x3F << 16));
+          return *(Register*)this;
         }
         /**
           Gets Path Selection
-          @return value in range 0..3
+          @return enumeration value:
+          target::evsys::CHANNEL::PATH::SYNCHRONOUS (0x0) Synchronous path
+          target::evsys::CHANNEL::PATH::RESYNCHRONIZED (0x1) Resynchronized path
+          target::evsys::CHANNEL::PATH::ASYNCHRONOUS (0x2) Asynchronous path
         */
-        __attribute__((always_inline)) unsigned long getPATH() volatile {
-          return (raw & (0x3 << 24)) >> 24;
+        __attribute__((always_inline)) target::evsys::CHANNEL::PATH getPATH() volatile {
+          return static_cast<target::evsys::CHANNEL::PATH>((raw & (0x3 << 24)) >> 24);
         }
         /**
           Sets Path Selection
-          @param value in range 0..3
+          @param value enumeration value:
+          target::evsys::CHANNEL::PATH::SYNCHRONOUS (0x0) Synchronous path
+          target::evsys::CHANNEL::PATH::RESYNCHRONIZED (0x1) Resynchronized path
+          target::evsys::CHANNEL::PATH::ASYNCHRONOUS (0x2) Asynchronous path
         */
-        __attribute__((always_inline)) unsigned long setPATH(unsigned long value) volatile {
-          raw = (raw & ~(0x3 << 24)) | ((value << 24) & (0x3 << 24));
+        __attribute__((always_inline)) Register& setPATH(target::evsys::CHANNEL::PATH value) volatile {
+          raw = (raw & ~(0x3 << 24)) | (((static_cast<unsigned long>(value)) << 24) & (0x3 << 24));
+          return *(Register*)this;
         }
         /**
           Gets Edge Detection Selection
-          @return value in range 0..3
+          @return enumeration value:
+          target::evsys::CHANNEL::EDGSEL::NO_EVT_OUTPUT (0x0) No event output when using the resynchronized or synchronous path
+          target::evsys::CHANNEL::EDGSEL::RISING_EDGE (0x1) Event detection only on the rising edge of the signal from the event generator when using the resynchronized or synchronous path
+          target::evsys::CHANNEL::EDGSEL::FALLING_EDGE (0x2) Event detection only on the falling edge of the signal from the event generator when using the resynchronized or synchronous path
+          target::evsys::CHANNEL::EDGSEL::BOTH_EDGES (0x3) Event detection on rising and falling edges of the signal from the event generator when using the resynchronized or synchronous path
         */
-        __attribute__((always_inline)) unsigned long getEDGSEL() volatile {
-          return (raw & (0x3 << 26)) >> 26;
+        __attribute__((always_inline)) target::evsys::CHANNEL::EDGSEL getEDGSEL() volatile {
+          return static_cast<target::evsys::CHANNEL::EDGSEL>((raw & (0x3 << 26)) >> 26);
         }
         /**
           Sets Edge Detection Selection
-          @param value in range 0..3
+          @param value enumeration value:
+          target::evsys::CHANNEL::EDGSEL::NO_EVT_OUTPUT (0x0) No event output when using the resynchronized or synchronous path
+          target::evsys::CHANNEL::EDGSEL::RISING_EDGE (0x1) Event detection only on the rising edge of the signal from the event generator when using the resynchronized or synchronous path
+          target::evsys::CHANNEL::EDGSEL::FALLING_EDGE (0x2) Event detection only on the falling edge of the signal from the event generator when using the resynchronized or synchronous path
+          target::evsys::CHANNEL::EDGSEL::BOTH_EDGES (0x3) Event detection on rising and falling edges of the signal from the event generator when using the resynchronized or synchronous path
         */
-        __attribute__((always_inline)) unsigned long setEDGSEL(unsigned long value) volatile {
-          raw = (raw & ~(0x3 << 26)) | ((value << 26) & (0x3 << 26));
+        __attribute__((always_inline)) Register& setEDGSEL(target::evsys::CHANNEL::EDGSEL value) volatile {
+          raw = (raw & ~(0x3 << 26)) | (((static_cast<unsigned long>(value)) << 26) & (0x3 << 26));
+          return *(Register*)this;
         }
       };
+    };
+    
+    /**
+      User Multiplexer
+    */
+    namespace USER {
+      enum class CHANNEL {
+        // No Channel Output Selected
+        NO_CHANNEL_OUTPUT_SELECTED = 0x0,
+      };
       
-      /**
-        User Multiplexer
-      */
-      class USER {
+      class Register {
         volatile unsigned short raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -141,39 +205,52 @@ namespace target {
           return raw;
         }
         /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
+        /**
           Gets User Multiplexer Selection
           @return value in range 0..31
         */
         __attribute__((always_inline)) unsigned long getUSER() volatile {
-          return (raw & (0x1F << 0)) >> 0;
+          return ((raw & (0x1F << 0)) >> 0);
         }
         /**
           Sets User Multiplexer Selection
-          @param value in range 0..31
+          @param value value in range 0..31
         */
-        __attribute__((always_inline)) unsigned long setUSER(unsigned long value) volatile {
-          raw = (raw & ~(0x1F << 0)) | ((value << 0) & (0x1F << 0));
+        __attribute__((always_inline)) Register& setUSER(unsigned long value) volatile {
+          raw = (raw & ~(0x1F << 0)) | ((((value)) << 0) & (0x1F << 0));
+          return *(Register*)this;
         }
         /**
           Gets Channel Event Selection
-          @return value in range 0..15
+          @return enumeration value:
+          target::evsys::USER::CHANNEL::NO_CHANNEL_OUTPUT_SELECTED (0x0) No Channel Output Selected
         */
-        __attribute__((always_inline)) unsigned long getCHANNEL() volatile {
-          return (raw & (0xF << 8)) >> 8;
+        __attribute__((always_inline)) target::evsys::USER::CHANNEL getCHANNEL() volatile {
+          return static_cast<target::evsys::USER::CHANNEL>((raw & (0xF << 8)) >> 8);
         }
         /**
           Sets Channel Event Selection
-          @param value in range 0..15
+          @param value enumeration value:
+          target::evsys::USER::CHANNEL::NO_CHANNEL_OUTPUT_SELECTED (0x0) No Channel Output Selected
         */
-        __attribute__((always_inline)) unsigned long setCHANNEL(unsigned long value) volatile {
-          raw = (raw & ~(0xF << 8)) | ((value << 8) & (0xF << 8));
+        __attribute__((always_inline)) Register& setCHANNEL(target::evsys::USER::CHANNEL value) volatile {
+          raw = (raw & ~(0xF << 8)) | (((static_cast<unsigned long>(value)) << 8) & (0xF << 8));
+          return *(Register*)this;
         }
       };
-      
-      /**
-        Channel Status
-      */
-      class CHSTATUS {
+    };
+    
+    /**
+      Channel Status
+    */
+    namespace CHSTATUS {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -181,73 +258,56 @@ namespace target {
         }
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
+        }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
         }
         /**
           Gets Channel 0 User Ready
           @param index in range 0..5
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getUSRRDY(int index) volatile {
-          return (raw & (0x1 << (0 + 1 * (index - 0)))) >> (0 + 1 * (index - 0));
+        __attribute__((always_inline)) bool getUSRRDY(int index) volatile {
+          return ((raw & (0x1 << (0 + 1 * (index - 0)))) >> (0 + 1 * (index - 0)));
         }
         /**
           Sets Channel 0 User Ready
           @param index in range 0..5
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setUSRRDY(int index, unsigned long value) volatile {
-          raw = (raw & ~(0x1 << (0 + 1 * (index - 0)))) | ((value << (0 + 1 * (index - 0))) & (0x1 << (0 + 1 * (index - 0))));
-        }
-        /**
-          Gets Channel 0 User Ready
-          @return value in range 0..63
-        */
-        __attribute__((always_inline)) unsigned long getUSRRDY() volatile {
-          return (raw & (0x3F << 0)) >> 0;
-        }
-        /**
-          Sets Channel 0 User Ready
-          @param value in range 0..63
-        */
-        __attribute__((always_inline)) unsigned long setUSRRDY(unsigned long value) volatile {
-          raw = (raw & ~(0x3F << 0)) | ((value << 0) & (0x3F << 0));
+        __attribute__((always_inline)) Register& setUSRRDY(int index, bool value) volatile {
+          raw = (raw & ~(0x1 << (0 + 1 * (index - 0)))) | ((((value)) << (0 + 1 * (index - 0))) & (0x1 << (0 + 1 * (index - 0))));
+          return *(Register*)this;
         }
         /**
           Gets Channel 0 Busy
           @param index in range 0..5
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getCHBUSY(int index) volatile {
-          return (raw & (0x1 << (8 + 1 * (index - 0)))) >> (8 + 1 * (index - 0));
+        __attribute__((always_inline)) bool getCHBUSY(int index) volatile {
+          return ((raw & (0x1 << (8 + 1 * (index - 0)))) >> (8 + 1 * (index - 0)));
         }
         /**
           Sets Channel 0 Busy
           @param index in range 0..5
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setCHBUSY(int index, unsigned long value) volatile {
-          raw = (raw & ~(0x1 << (8 + 1 * (index - 0)))) | ((value << (8 + 1 * (index - 0))) & (0x1 << (8 + 1 * (index - 0))));
-        }
-        /**
-          Gets Channel 0 Busy
-          @return value in range 0..63
-        */
-        __attribute__((always_inline)) unsigned long getCHBUSY() volatile {
-          return (raw & (0x3F << 8)) >> 8;
-        }
-        /**
-          Sets Channel 0 Busy
-          @param value in range 0..63
-        */
-        __attribute__((always_inline)) unsigned long setCHBUSY(unsigned long value) volatile {
-          raw = (raw & ~(0x3F << 8)) | ((value << 8) & (0x3F << 8));
+        __attribute__((always_inline)) Register& setCHBUSY(int index, bool value) volatile {
+          raw = (raw & ~(0x1 << (8 + 1 * (index - 0)))) | ((((value)) << (8 + 1 * (index - 0))) & (0x1 << (8 + 1 * (index - 0))));
+          return *(Register*)this;
         }
       };
-      
-      /**
-        Interrupt Enable Clear
-      */
-      class INTENCLR {
+    };
+    
+    /**
+      Interrupt Enable Clear
+    */
+    namespace INTENCLR {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -257,71 +317,54 @@ namespace target {
           return raw;
         }
         /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
+        /**
           Gets Channel 0 Overrun Interrupt Enable
           @param index in range 0..5
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getOVR(int index) volatile {
-          return (raw & (0x1 << (0 + 1 * (index - 0)))) >> (0 + 1 * (index - 0));
+        __attribute__((always_inline)) bool getOVR(int index) volatile {
+          return ((raw & (0x1 << (0 + 1 * (index - 0)))) >> (0 + 1 * (index - 0)));
         }
         /**
           Sets Channel 0 Overrun Interrupt Enable
           @param index in range 0..5
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setOVR(int index, unsigned long value) volatile {
-          raw = (raw & ~(0x1 << (0 + 1 * (index - 0)))) | ((value << (0 + 1 * (index - 0))) & (0x1 << (0 + 1 * (index - 0))));
-        }
-        /**
-          Gets Channel 0 Overrun Interrupt Enable
-          @return value in range 0..63
-        */
-        __attribute__((always_inline)) unsigned long getOVR() volatile {
-          return (raw & (0x3F << 0)) >> 0;
-        }
-        /**
-          Sets Channel 0 Overrun Interrupt Enable
-          @param value in range 0..63
-        */
-        __attribute__((always_inline)) unsigned long setOVR(unsigned long value) volatile {
-          raw = (raw & ~(0x3F << 0)) | ((value << 0) & (0x3F << 0));
+        __attribute__((always_inline)) Register& setOVR(int index, bool value) volatile {
+          raw = (raw & ~(0x1 << (0 + 1 * (index - 0)))) | ((((value)) << (0 + 1 * (index - 0))) & (0x1 << (0 + 1 * (index - 0))));
+          return *(Register*)this;
         }
         /**
           Gets Channel 0 Event Detection Interrupt Enable
           @param index in range 0..5
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getEVD(int index) volatile {
-          return (raw & (0x1 << (8 + 1 * (index - 0)))) >> (8 + 1 * (index - 0));
+        __attribute__((always_inline)) bool getEVD(int index) volatile {
+          return ((raw & (0x1 << (8 + 1 * (index - 0)))) >> (8 + 1 * (index - 0)));
         }
         /**
           Sets Channel 0 Event Detection Interrupt Enable
           @param index in range 0..5
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setEVD(int index, unsigned long value) volatile {
-          raw = (raw & ~(0x1 << (8 + 1 * (index - 0)))) | ((value << (8 + 1 * (index - 0))) & (0x1 << (8 + 1 * (index - 0))));
-        }
-        /**
-          Gets Channel 0 Event Detection Interrupt Enable
-          @return value in range 0..63
-        */
-        __attribute__((always_inline)) unsigned long getEVD() volatile {
-          return (raw & (0x3F << 8)) >> 8;
-        }
-        /**
-          Sets Channel 0 Event Detection Interrupt Enable
-          @param value in range 0..63
-        */
-        __attribute__((always_inline)) unsigned long setEVD(unsigned long value) volatile {
-          raw = (raw & ~(0x3F << 8)) | ((value << 8) & (0x3F << 8));
+        __attribute__((always_inline)) Register& setEVD(int index, bool value) volatile {
+          raw = (raw & ~(0x1 << (8 + 1 * (index - 0)))) | ((((value)) << (8 + 1 * (index - 0))) & (0x1 << (8 + 1 * (index - 0))));
+          return *(Register*)this;
         }
       };
-      
-      /**
-        Interrupt Enable Set
-      */
-      class INTENSET {
+    };
+    
+    /**
+      Interrupt Enable Set
+    */
+    namespace INTENSET {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -331,71 +374,54 @@ namespace target {
           return raw;
         }
         /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
+        /**
           Gets Channel 0 Overrun Interrupt Enable
           @param index in range 0..5
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getOVR(int index) volatile {
-          return (raw & (0x1 << (0 + 1 * (index - 0)))) >> (0 + 1 * (index - 0));
+        __attribute__((always_inline)) bool getOVR(int index) volatile {
+          return ((raw & (0x1 << (0 + 1 * (index - 0)))) >> (0 + 1 * (index - 0)));
         }
         /**
           Sets Channel 0 Overrun Interrupt Enable
           @param index in range 0..5
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setOVR(int index, unsigned long value) volatile {
-          raw = (raw & ~(0x1 << (0 + 1 * (index - 0)))) | ((value << (0 + 1 * (index - 0))) & (0x1 << (0 + 1 * (index - 0))));
-        }
-        /**
-          Gets Channel 0 Overrun Interrupt Enable
-          @return value in range 0..63
-        */
-        __attribute__((always_inline)) unsigned long getOVR() volatile {
-          return (raw & (0x3F << 0)) >> 0;
-        }
-        /**
-          Sets Channel 0 Overrun Interrupt Enable
-          @param value in range 0..63
-        */
-        __attribute__((always_inline)) unsigned long setOVR(unsigned long value) volatile {
-          raw = (raw & ~(0x3F << 0)) | ((value << 0) & (0x3F << 0));
+        __attribute__((always_inline)) Register& setOVR(int index, bool value) volatile {
+          raw = (raw & ~(0x1 << (0 + 1 * (index - 0)))) | ((((value)) << (0 + 1 * (index - 0))) & (0x1 << (0 + 1 * (index - 0))));
+          return *(Register*)this;
         }
         /**
           Gets Channel 0 Event Detection Interrupt Enable
           @param index in range 0..5
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getEVD(int index) volatile {
-          return (raw & (0x1 << (8 + 1 * (index - 0)))) >> (8 + 1 * (index - 0));
+        __attribute__((always_inline)) bool getEVD(int index) volatile {
+          return ((raw & (0x1 << (8 + 1 * (index - 0)))) >> (8 + 1 * (index - 0)));
         }
         /**
           Sets Channel 0 Event Detection Interrupt Enable
           @param index in range 0..5
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setEVD(int index, unsigned long value) volatile {
-          raw = (raw & ~(0x1 << (8 + 1 * (index - 0)))) | ((value << (8 + 1 * (index - 0))) & (0x1 << (8 + 1 * (index - 0))));
-        }
-        /**
-          Gets Channel 0 Event Detection Interrupt Enable
-          @return value in range 0..63
-        */
-        __attribute__((always_inline)) unsigned long getEVD() volatile {
-          return (raw & (0x3F << 8)) >> 8;
-        }
-        /**
-          Sets Channel 0 Event Detection Interrupt Enable
-          @param value in range 0..63
-        */
-        __attribute__((always_inline)) unsigned long setEVD(unsigned long value) volatile {
-          raw = (raw & ~(0x3F << 8)) | ((value << 8) & (0x3F << 8));
+        __attribute__((always_inline)) Register& setEVD(int index, bool value) volatile {
+          raw = (raw & ~(0x1 << (8 + 1 * (index - 0)))) | ((((value)) << (8 + 1 * (index - 0))) & (0x1 << (8 + 1 * (index - 0))));
+          return *(Register*)this;
         }
       };
-      
-      /**
-        Interrupt Flag Status and Clear
-      */
-      class INTFLAG {
+    };
+    
+    /**
+      Interrupt Flag Status and Clear
+    */
+    namespace INTFLAG {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -403,66 +429,47 @@ namespace target {
         }
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
+        }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
         }
         /**
           Gets Channel 0 Overrun
           @param index in range 0..5
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getOVR(int index) volatile {
-          return (raw & (0x1 << (0 + 1 * (index - 0)))) >> (0 + 1 * (index - 0));
+        __attribute__((always_inline)) bool getOVR(int index) volatile {
+          return ((raw & (0x1 << (0 + 1 * (index - 0)))) >> (0 + 1 * (index - 0)));
         }
         /**
           Sets Channel 0 Overrun
           @param index in range 0..5
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setOVR(int index, unsigned long value) volatile {
-          raw = (raw & ~(0x1 << (0 + 1 * (index - 0)))) | ((value << (0 + 1 * (index - 0))) & (0x1 << (0 + 1 * (index - 0))));
-        }
-        /**
-          Gets Channel 0 Overrun
-          @return value in range 0..63
-        */
-        __attribute__((always_inline)) unsigned long getOVR() volatile {
-          return (raw & (0x3F << 0)) >> 0;
-        }
-        /**
-          Sets Channel 0 Overrun
-          @param value in range 0..63
-        */
-        __attribute__((always_inline)) unsigned long setOVR(unsigned long value) volatile {
-          raw = (raw & ~(0x3F << 0)) | ((value << 0) & (0x3F << 0));
+        __attribute__((always_inline)) Register& setOVR(int index, bool value) volatile {
+          raw = (raw & ~(0x1 << (0 + 1 * (index - 0)))) | ((((value)) << (0 + 1 * (index - 0))) & (0x1 << (0 + 1 * (index - 0))));
+          return *(Register*)this;
         }
         /**
           Gets Channel 0 Event Detection
           @param index in range 0..5
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getEVD(int index) volatile {
-          return (raw & (0x1 << (8 + 1 * (index - 0)))) >> (8 + 1 * (index - 0));
+        __attribute__((always_inline)) bool getEVD(int index) volatile {
+          return ((raw & (0x1 << (8 + 1 * (index - 0)))) >> (8 + 1 * (index - 0)));
         }
         /**
           Sets Channel 0 Event Detection
           @param index in range 0..5
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setEVD(int index, unsigned long value) volatile {
-          raw = (raw & ~(0x1 << (8 + 1 * (index - 0)))) | ((value << (8 + 1 * (index - 0))) & (0x1 << (8 + 1 * (index - 0))));
-        }
-        /**
-          Gets Channel 0 Event Detection
-          @return value in range 0..63
-        */
-        __attribute__((always_inline)) unsigned long getEVD() volatile {
-          return (raw & (0x3F << 8)) >> 8;
-        }
-        /**
-          Sets Channel 0 Event Detection
-          @param value in range 0..63
-        */
-        __attribute__((always_inline)) unsigned long setEVD(unsigned long value) volatile {
-          raw = (raw & ~(0x3F << 8)) | ((value << 8) & (0x3F << 8));
+        __attribute__((always_inline)) Register& setEVD(int index, bool value) volatile {
+          raw = (raw & ~(0x1 << (8 + 1 * (index - 0)))) | ((((value)) << (8 + 1 * (index - 0))) & (0x1 << (8 + 1 * (index - 0))));
+          return *(Register*)this;
         }
       };
     };
@@ -473,53 +480,53 @@ namespace target {
           /**
             Control
           */
-          volatile reg::CTRL CTRL;
+          CTRL::Register CTRL;
         };
         struct {
-          volatile char _space_CHANNEL[0x4];
+          char _space_CHANNEL[0x4];
           /**
             Channel
           */
-          volatile reg::CHANNEL CHANNEL;
+          CHANNEL::Register CHANNEL;
         };
         struct {
-          volatile char _space_USER[0x8];
+          char _space_USER[0x8];
           /**
             User Multiplexer
           */
-          volatile reg::USER USER;
+          USER::Register USER;
         };
         struct {
-          volatile char _space_CHSTATUS[0xc];
+          char _space_CHSTATUS[0xc];
           /**
             Channel Status
           */
-          volatile reg::CHSTATUS CHSTATUS;
+          CHSTATUS::Register CHSTATUS;
         };
         struct {
-          volatile char _space_INTENCLR[0x10];
+          char _space_INTENCLR[0x10];
           /**
             Interrupt Enable Clear
           */
-          volatile reg::INTENCLR INTENCLR;
+          INTENCLR::Register INTENCLR;
         };
         struct {
-          volatile char _space_INTENSET[0x14];
+          char _space_INTENSET[0x14];
           /**
             Interrupt Enable Set
           */
-          volatile reg::INTENSET INTENSET;
+          INTENSET::Register INTENSET;
         };
         struct {
-          volatile char _space_INTFLAG[0x18];
+          char _space_INTFLAG[0x18];
           /**
             Interrupt Flag Status and Clear
           */
-          volatile reg::INTFLAG INTFLAG;
+          INTFLAG::Register INTFLAG;
         };
       };
     };
   }
   
-  extern evsys::Peripheral EVSYS;
+  extern volatile evsys::Peripheral EVSYS;
 }

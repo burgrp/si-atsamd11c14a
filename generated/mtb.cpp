@@ -1,11 +1,11 @@
 namespace target {
   namespace mtb {
-    namespace reg {
-      
-      /**
-        MTB Position
-      */
-      class POSITION {
+    
+    /**
+      MTB Position
+    */
+    namespace POSITION {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -15,39 +15,50 @@ namespace target {
           return raw;
         }
         /**
-          Gets Pointer Value Wraps
-          @return value in range 0..1
+          Sets register to zero
         */
-        __attribute__((always_inline)) unsigned long getWRAP() volatile {
-          return (raw & (0x1 << 2)) >> 2;
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
+        /**
+          Gets Pointer Value Wraps
+          @return boolean value
+        */
+        __attribute__((always_inline)) bool getWRAP() volatile {
+          return ((raw & (0x1 << 2)) >> 2);
         }
         /**
           Sets Pointer Value Wraps
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setWRAP(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 2)) | ((value << 2) & (0x1 << 2));
+        __attribute__((always_inline)) Register& setWRAP(bool value) volatile {
+          raw = (raw & ~(0x1 << 2)) | ((((value)) << 2) & (0x1 << 2));
+          return *(Register*)this;
         }
         /**
           Gets Trace Packet Location Pointer
           @return value in range 0..536870911
         */
         __attribute__((always_inline)) unsigned long getPOINTER() volatile {
-          return (raw & (0x1FFFFFFF << 3)) >> 3;
+          return ((raw & (0x1FFFFFFF << 3)) >> 3);
         }
         /**
           Sets Trace Packet Location Pointer
-          @param value in range 0..536870911
+          @param value value in range 0..536870911
         */
-        __attribute__((always_inline)) unsigned long setPOINTER(unsigned long value) volatile {
-          raw = (raw & ~(0x1FFFFFFF << 3)) | ((value << 3) & (0x1FFFFFFF << 3));
+        __attribute__((always_inline)) Register& setPOINTER(unsigned long value) volatile {
+          raw = (raw & ~(0x1FFFFFFF << 3)) | ((((value)) << 3) & (0x1FFFFFFF << 3));
+          return *(Register*)this;
         }
       };
-      
-      /**
-        MTB Master
-      */
-      class MASTER {
+    };
+    
+    /**
+      MTB Master
+    */
+    namespace MASTER {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -55,111 +66,127 @@ namespace target {
         }
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
+        }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
         }
         /**
           Gets Maximum Value of the Trace Buffer in SRAM
           @return value in range 0..31
         */
         __attribute__((always_inline)) unsigned long getMASK() volatile {
-          return (raw & (0x1F << 0)) >> 0;
+          return ((raw & (0x1F << 0)) >> 0);
         }
         /**
           Sets Maximum Value of the Trace Buffer in SRAM
-          @param value in range 0..31
+          @param value value in range 0..31
         */
-        __attribute__((always_inline)) unsigned long setMASK(unsigned long value) volatile {
-          raw = (raw & ~(0x1F << 0)) | ((value << 0) & (0x1F << 0));
+        __attribute__((always_inline)) Register& setMASK(unsigned long value) volatile {
+          raw = (raw & ~(0x1F << 0)) | ((((value)) << 0) & (0x1F << 0));
+          return *(Register*)this;
         }
         /**
           Gets Trace Start Input Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getTSTARTEN() volatile {
-          return (raw & (0x1 << 5)) >> 5;
+        __attribute__((always_inline)) bool getTSTARTEN() volatile {
+          return ((raw & (0x1 << 5)) >> 5);
         }
         /**
           Sets Trace Start Input Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setTSTARTEN(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 5)) | ((value << 5) & (0x1 << 5));
+        __attribute__((always_inline)) Register& setTSTARTEN(bool value) volatile {
+          raw = (raw & ~(0x1 << 5)) | ((((value)) << 5) & (0x1 << 5));
+          return *(Register*)this;
         }
         /**
           Gets Trace Stop Input Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getTSTOPEN() volatile {
-          return (raw & (0x1 << 6)) >> 6;
+        __attribute__((always_inline)) bool getTSTOPEN() volatile {
+          return ((raw & (0x1 << 6)) >> 6);
         }
         /**
           Sets Trace Stop Input Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setTSTOPEN(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 6)) | ((value << 6) & (0x1 << 6));
+        __attribute__((always_inline)) Register& setTSTOPEN(bool value) volatile {
+          raw = (raw & ~(0x1 << 6)) | ((((value)) << 6) & (0x1 << 6));
+          return *(Register*)this;
         }
         /**
           Gets Special Function Register Write Privilege
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getSFRWPRIV() volatile {
-          return (raw & (0x1 << 7)) >> 7;
+        __attribute__((always_inline)) bool getSFRWPRIV() volatile {
+          return ((raw & (0x1 << 7)) >> 7);
         }
         /**
           Sets Special Function Register Write Privilege
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setSFRWPRIV(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 7)) | ((value << 7) & (0x1 << 7));
+        __attribute__((always_inline)) Register& setSFRWPRIV(bool value) volatile {
+          raw = (raw & ~(0x1 << 7)) | ((((value)) << 7) & (0x1 << 7));
+          return *(Register*)this;
         }
         /**
           Gets SRAM Privilege
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getRAMPRIV() volatile {
-          return (raw & (0x1 << 8)) >> 8;
+        __attribute__((always_inline)) bool getRAMPRIV() volatile {
+          return ((raw & (0x1 << 8)) >> 8);
         }
         /**
           Sets SRAM Privilege
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setRAMPRIV(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 8)) | ((value << 8) & (0x1 << 8));
+        __attribute__((always_inline)) Register& setRAMPRIV(bool value) volatile {
+          raw = (raw & ~(0x1 << 8)) | ((((value)) << 8) & (0x1 << 8));
+          return *(Register*)this;
         }
         /**
           Gets Halt Request
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getHALTREQ() volatile {
-          return (raw & (0x1 << 9)) >> 9;
+        __attribute__((always_inline)) bool getHALTREQ() volatile {
+          return ((raw & (0x1 << 9)) >> 9);
         }
         /**
           Sets Halt Request
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setHALTREQ(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 9)) | ((value << 9) & (0x1 << 9));
+        __attribute__((always_inline)) Register& setHALTREQ(bool value) volatile {
+          raw = (raw & ~(0x1 << 9)) | ((((value)) << 9) & (0x1 << 9));
+          return *(Register*)this;
         }
         /**
           Gets Main Trace Enable
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getEN() volatile {
-          return (raw & (0x1 << 31)) >> 31;
+        __attribute__((always_inline)) bool getEN() volatile {
+          return ((raw & (0x1 << 31)) >> 31);
         }
         /**
           Sets Main Trace Enable
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setEN(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 31)) | ((value << 31) & (0x1 << 31));
+        __attribute__((always_inline)) Register& setEN(bool value) volatile {
+          raw = (raw & ~(0x1 << 31)) | ((((value)) << 31) & (0x1 << 31));
+          return *(Register*)this;
         }
       };
-      
-      /**
-        MTB Flow
-      */
-      class FLOW {
+    };
+    
+    /**
+      MTB Flow
+    */
+    namespace FLOW {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -169,53 +196,65 @@ namespace target {
           return raw;
         }
         /**
-          Gets Auto Stop Tracing
-          @return value in range 0..1
+          Sets register to zero
         */
-        __attribute__((always_inline)) unsigned long getAUTOSTOP() volatile {
-          return (raw & (0x1 << 0)) >> 0;
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
+        /**
+          Gets Auto Stop Tracing
+          @return boolean value
+        */
+        __attribute__((always_inline)) bool getAUTOSTOP() volatile {
+          return ((raw & (0x1 << 0)) >> 0);
         }
         /**
           Sets Auto Stop Tracing
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setAUTOSTOP(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 0)) | ((value << 0) & (0x1 << 0));
+        __attribute__((always_inline)) Register& setAUTOSTOP(bool value) volatile {
+          raw = (raw & ~(0x1 << 0)) | ((((value)) << 0) & (0x1 << 0));
+          return *(Register*)this;
         }
         /**
           Gets Auto Halt Request
-          @return value in range 0..1
+          @return boolean value
         */
-        __attribute__((always_inline)) unsigned long getAUTOHALT() volatile {
-          return (raw & (0x1 << 1)) >> 1;
+        __attribute__((always_inline)) bool getAUTOHALT() volatile {
+          return ((raw & (0x1 << 1)) >> 1);
         }
         /**
           Sets Auto Halt Request
-          @param value in range 0..1
+          @param value boolean value
         */
-        __attribute__((always_inline)) unsigned long setAUTOHALT(unsigned long value) volatile {
-          raw = (raw & ~(0x1 << 1)) | ((value << 1) & (0x1 << 1));
+        __attribute__((always_inline)) Register& setAUTOHALT(bool value) volatile {
+          raw = (raw & ~(0x1 << 1)) | ((((value)) << 1) & (0x1 << 1));
+          return *(Register*)this;
         }
         /**
           Gets Watermark value
           @return value in range 0..536870911
         */
         __attribute__((always_inline)) unsigned long getWATERMARK() volatile {
-          return (raw & (0x1FFFFFFF << 3)) >> 3;
+          return ((raw & (0x1FFFFFFF << 3)) >> 3);
         }
         /**
           Sets Watermark value
-          @param value in range 0..536870911
+          @param value value in range 0..536870911
         */
-        __attribute__((always_inline)) unsigned long setWATERMARK(unsigned long value) volatile {
-          raw = (raw & ~(0x1FFFFFFF << 3)) | ((value << 3) & (0x1FFFFFFF << 3));
+        __attribute__((always_inline)) Register& setWATERMARK(unsigned long value) volatile {
+          raw = (raw & ~(0x1FFFFFFF << 3)) | ((((value)) << 3) & (0x1FFFFFFF << 3));
+          return *(Register*)this;
         }
       };
-      
-      /**
-        MTB Base
-      */
-      class BASE {
+    };
+    
+    /**
+      MTB Base
+    */
+    namespace BASE {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -224,12 +263,21 @@ namespace target {
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
         }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
       };
-      
-      /**
-        MTB Integration Mode Control
-      */
-      class ITCTRL {
+    };
+    
+    /**
+      MTB Integration Mode Control
+    */
+    namespace ITCTRL {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -238,12 +286,21 @@ namespace target {
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
         }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
       };
-      
-      /**
-        MTB Claim Set
-      */
-      class CLAIMSET {
+    };
+    
+    /**
+      MTB Claim Set
+    */
+    namespace CLAIMSET {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -252,12 +309,21 @@ namespace target {
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
         }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
       };
-      
-      /**
-        MTB Claim Clear
-      */
-      class CLAIMCLR {
+    };
+    
+    /**
+      MTB Claim Clear
+    */
+    namespace CLAIMCLR {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -266,12 +332,21 @@ namespace target {
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
         }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
       };
-      
-      /**
-        MTB Lock Access
-      */
-      class LOCKACCESS {
+    };
+    
+    /**
+      MTB Lock Access
+    */
+    namespace LOCKACCESS {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -280,12 +355,21 @@ namespace target {
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
         }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
       };
-      
-      /**
-        MTB Lock Status
-      */
-      class LOCKSTATUS {
+    };
+    
+    /**
+      MTB Lock Status
+    */
+    namespace LOCKSTATUS {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -294,12 +378,21 @@ namespace target {
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
         }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
       };
-      
-      /**
-        MTB Authentication Status
-      */
-      class AUTHSTATUS {
+    };
+    
+    /**
+      MTB Authentication Status
+    */
+    namespace AUTHSTATUS {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -308,12 +401,21 @@ namespace target {
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
         }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
       };
-      
-      /**
-        MTB Device Architecture
-      */
-      class DEVARCH {
+    };
+    
+    /**
+      MTB Device Architecture
+    */
+    namespace DEVARCH {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -322,12 +424,21 @@ namespace target {
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
         }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
       };
-      
-      /**
-        MTB Device Configuration
-      */
-      class DEVID {
+    };
+    
+    /**
+      MTB Device Configuration
+    */
+    namespace DEVID {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -336,12 +447,21 @@ namespace target {
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
         }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
       };
-      
-      /**
-        MTB Device Type
-      */
-      class DEVTYPE {
+    };
+    
+    /**
+      MTB Device Type
+    */
+    namespace DEVTYPE {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -350,12 +470,21 @@ namespace target {
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
         }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
       };
-      
-      /**
-        CoreSight
-      */
-      class PID4 {
+    };
+    
+    /**
+      CoreSight
+    */
+    namespace PID4 {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -364,12 +493,21 @@ namespace target {
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
         }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
       };
-      
-      /**
-        CoreSight
-      */
-      class PID5 {
+    };
+    
+    /**
+      CoreSight
+    */
+    namespace PID5 {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -378,12 +516,21 @@ namespace target {
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
         }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
       };
-      
-      /**
-        CoreSight
-      */
-      class PID6 {
+    };
+    
+    /**
+      CoreSight
+    */
+    namespace PID6 {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -392,12 +539,21 @@ namespace target {
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
         }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
       };
-      
-      /**
-        CoreSight
-      */
-      class PID7 {
+    };
+    
+    /**
+      CoreSight
+    */
+    namespace PID7 {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -406,12 +562,21 @@ namespace target {
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
         }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
       };
-      
-      /**
-        CoreSight
-      */
-      class PID0 {
+    };
+    
+    /**
+      CoreSight
+    */
+    namespace PID0 {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -420,12 +585,21 @@ namespace target {
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
         }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
       };
-      
-      /**
-        CoreSight
-      */
-      class PID1 {
+    };
+    
+    /**
+      CoreSight
+    */
+    namespace PID1 {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -434,12 +608,21 @@ namespace target {
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
         }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
       };
-      
-      /**
-        CoreSight
-      */
-      class PID2 {
+    };
+    
+    /**
+      CoreSight
+    */
+    namespace PID2 {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -448,12 +631,21 @@ namespace target {
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
         }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
       };
-      
-      /**
-        CoreSight
-      */
-      class PID3 {
+    };
+    
+    /**
+      CoreSight
+    */
+    namespace PID3 {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -462,12 +654,21 @@ namespace target {
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
         }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
       };
-      
-      /**
-        CoreSight
-      */
-      class CID0 {
+    };
+    
+    /**
+      CoreSight
+    */
+    namespace CID0 {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -476,12 +677,21 @@ namespace target {
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
         }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
       };
-      
-      /**
-        CoreSight
-      */
-      class CID1 {
+    };
+    
+    /**
+      CoreSight
+    */
+    namespace CID1 {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -490,12 +700,21 @@ namespace target {
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
         }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
       };
-      
-      /**
-        CoreSight
-      */
-      class CID2 {
+    };
+    
+    /**
+      CoreSight
+    */
+    namespace CID2 {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -504,12 +723,21 @@ namespace target {
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
         }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
+        }
       };
-      
-      /**
-        CoreSight
-      */
-      class CID3 {
+    };
+    
+    /**
+      CoreSight
+    */
+    namespace CID3 {
+      class Register {
         volatile unsigned long raw;
         public:
         __attribute__((always_inline)) void operator= (unsigned long value) volatile {
@@ -517,6 +745,13 @@ namespace target {
         }
         __attribute__((always_inline)) operator unsigned long () volatile {
           return raw;
+        }
+        /**
+          Sets register to zero
+        */
+        __attribute__((always_inline)) Register& zero() volatile {
+          raw = 0;
+          return *(Register*)this;
         }
       };
     };
@@ -527,179 +762,179 @@ namespace target {
           /**
             MTB Position
           */
-          volatile reg::POSITION POSITION;
+          POSITION::Register POSITION;
         };
         struct {
-          volatile char _space_MASTER[0x4];
+          char _space_MASTER[0x4];
           /**
             MTB Master
           */
-          volatile reg::MASTER MASTER;
+          MASTER::Register MASTER;
         };
         struct {
-          volatile char _space_FLOW[0x8];
+          char _space_FLOW[0x8];
           /**
             MTB Flow
           */
-          volatile reg::FLOW FLOW;
+          FLOW::Register FLOW;
         };
         struct {
-          volatile char _space_BASE[0xc];
+          char _space_BASE[0xc];
           /**
             MTB Base
           */
-          volatile reg::BASE BASE;
+          BASE::Register BASE;
         };
         struct {
-          volatile char _space_ITCTRL[0xf00];
+          char _space_ITCTRL[0xf00];
           /**
             MTB Integration Mode Control
           */
-          volatile reg::ITCTRL ITCTRL;
+          ITCTRL::Register ITCTRL;
         };
         struct {
-          volatile char _space_CLAIMSET[0xfa0];
+          char _space_CLAIMSET[0xfa0];
           /**
             MTB Claim Set
           */
-          volatile reg::CLAIMSET CLAIMSET;
+          CLAIMSET::Register CLAIMSET;
         };
         struct {
-          volatile char _space_CLAIMCLR[0xfa4];
+          char _space_CLAIMCLR[0xfa4];
           /**
             MTB Claim Clear
           */
-          volatile reg::CLAIMCLR CLAIMCLR;
+          CLAIMCLR::Register CLAIMCLR;
         };
         struct {
-          volatile char _space_LOCKACCESS[0xfb0];
+          char _space_LOCKACCESS[0xfb0];
           /**
             MTB Lock Access
           */
-          volatile reg::LOCKACCESS LOCKACCESS;
+          LOCKACCESS::Register LOCKACCESS;
         };
         struct {
-          volatile char _space_LOCKSTATUS[0xfb4];
+          char _space_LOCKSTATUS[0xfb4];
           /**
             MTB Lock Status
           */
-          volatile reg::LOCKSTATUS LOCKSTATUS;
+          LOCKSTATUS::Register LOCKSTATUS;
         };
         struct {
-          volatile char _space_AUTHSTATUS[0xfb8];
+          char _space_AUTHSTATUS[0xfb8];
           /**
             MTB Authentication Status
           */
-          volatile reg::AUTHSTATUS AUTHSTATUS;
+          AUTHSTATUS::Register AUTHSTATUS;
         };
         struct {
-          volatile char _space_DEVARCH[0xfbc];
+          char _space_DEVARCH[0xfbc];
           /**
             MTB Device Architecture
           */
-          volatile reg::DEVARCH DEVARCH;
+          DEVARCH::Register DEVARCH;
         };
         struct {
-          volatile char _space_DEVID[0xfc8];
+          char _space_DEVID[0xfc8];
           /**
             MTB Device Configuration
           */
-          volatile reg::DEVID DEVID;
+          DEVID::Register DEVID;
         };
         struct {
-          volatile char _space_DEVTYPE[0xfcc];
+          char _space_DEVTYPE[0xfcc];
           /**
             MTB Device Type
           */
-          volatile reg::DEVTYPE DEVTYPE;
+          DEVTYPE::Register DEVTYPE;
         };
         struct {
-          volatile char _space_PID4[0xfd0];
+          char _space_PID4[0xfd0];
           /**
             CoreSight
           */
-          volatile reg::PID4 PID4;
+          PID4::Register PID4;
         };
         struct {
-          volatile char _space_PID5[0xfd4];
+          char _space_PID5[0xfd4];
           /**
             CoreSight
           */
-          volatile reg::PID5 PID5;
+          PID5::Register PID5;
         };
         struct {
-          volatile char _space_PID6[0xfd8];
+          char _space_PID6[0xfd8];
           /**
             CoreSight
           */
-          volatile reg::PID6 PID6;
+          PID6::Register PID6;
         };
         struct {
-          volatile char _space_PID7[0xfdc];
+          char _space_PID7[0xfdc];
           /**
             CoreSight
           */
-          volatile reg::PID7 PID7;
+          PID7::Register PID7;
         };
         struct {
-          volatile char _space_PID0[0xfe0];
+          char _space_PID0[0xfe0];
           /**
             CoreSight
           */
-          volatile reg::PID0 PID0;
+          PID0::Register PID0;
         };
         struct {
-          volatile char _space_PID1[0xfe4];
+          char _space_PID1[0xfe4];
           /**
             CoreSight
           */
-          volatile reg::PID1 PID1;
+          PID1::Register PID1;
         };
         struct {
-          volatile char _space_PID2[0xfe8];
+          char _space_PID2[0xfe8];
           /**
             CoreSight
           */
-          volatile reg::PID2 PID2;
+          PID2::Register PID2;
         };
         struct {
-          volatile char _space_PID3[0xfec];
+          char _space_PID3[0xfec];
           /**
             CoreSight
           */
-          volatile reg::PID3 PID3;
+          PID3::Register PID3;
         };
         struct {
-          volatile char _space_CID0[0xff0];
+          char _space_CID0[0xff0];
           /**
             CoreSight
           */
-          volatile reg::CID0 CID0;
+          CID0::Register CID0;
         };
         struct {
-          volatile char _space_CID1[0xff4];
+          char _space_CID1[0xff4];
           /**
             CoreSight
           */
-          volatile reg::CID1 CID1;
+          CID1::Register CID1;
         };
         struct {
-          volatile char _space_CID2[0xff8];
+          char _space_CID2[0xff8];
           /**
             CoreSight
           */
-          volatile reg::CID2 CID2;
+          CID2::Register CID2;
         };
         struct {
-          volatile char _space_CID3[0xffc];
+          char _space_CID3[0xffc];
           /**
             CoreSight
           */
-          volatile reg::CID3 CID3;
+          CID3::Register CID3;
         };
       };
     };
   }
   
-  extern mtb::Peripheral MTB;
+  extern volatile mtb::Peripheral MTB;
 }
