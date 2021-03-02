@@ -50,6 +50,22 @@ namespace target {
             return raw;
           }
           /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
+          }
+          /**
             Sets register to zero
           */
           __attribute__((always_inline)) Register& zero() volatile {
@@ -176,6 +192,22 @@ namespace target {
             return raw;
           }
           /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
+          }
+          /**
             Sets register to zero
           */
           __attribute__((always_inline)) Register& zero() volatile {
@@ -242,6 +274,22 @@ namespace target {
           }
           __attribute__((always_inline)) operator unsigned long () volatile {
             return raw;
+          }
+          /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
           }
           /**
             Sets register to zero
@@ -314,6 +362,22 @@ namespace target {
             return raw;
           }
           /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
+          }
+          /**
             Sets register to zero
           */
           __attribute__((always_inline)) Register& zero() volatile {
@@ -380,6 +444,22 @@ namespace target {
           }
           __attribute__((always_inline)) operator unsigned long () volatile {
             return raw;
+          }
+          /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
           }
           /**
             Sets register to zero
@@ -450,6 +530,22 @@ namespace target {
             return raw;
           }
           /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
+          }
+          /**
             Sets register to zero
           */
           __attribute__((always_inline)) Register& zero() volatile {
@@ -518,6 +614,22 @@ namespace target {
             return raw;
           }
           /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
+          }
+          /**
             Sets register to zero
           */
           __attribute__((always_inline)) Register& zero() volatile {
@@ -556,6 +668,22 @@ namespace target {
             return raw;
           }
           /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
+          }
+          /**
             Sets register to zero
           */
           __attribute__((always_inline)) Register& zero() volatile {
@@ -592,6 +720,22 @@ namespace target {
           }
           __attribute__((always_inline)) operator unsigned long () volatile {
             return raw;
+          }
+          /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
           }
           /**
             Sets register to zero
@@ -647,6 +791,22 @@ namespace target {
             return raw;
           }
           /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
+          }
+          /**
             Sets register to zero
           */
           __attribute__((always_inline)) Register& zero() volatile {
@@ -683,6 +843,22 @@ namespace target {
           }
           __attribute__((always_inline)) operator unsigned long () volatile {
             return raw;
+          }
+          /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
           }
           /**
             Sets register to zero
@@ -758,6 +934,22 @@ namespace target {
           }
           __attribute__((always_inline)) operator unsigned long () volatile {
             return raw;
+          }
+          /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
           }
           /**
             Sets register to zero
@@ -871,6 +1063,22 @@ namespace target {
             return raw;
           }
           /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
+          }
+          /**
             Sets register to zero
           */
           __attribute__((always_inline)) Register& zero() volatile {
@@ -937,6 +1145,22 @@ namespace target {
           }
           __attribute__((always_inline)) operator unsigned long () volatile {
             return raw;
+          }
+          /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
           }
           /**
             Sets register to zero
@@ -1011,6 +1235,22 @@ namespace target {
             return raw;
           }
           /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
+          }
+          /**
             Sets register to zero
           */
           __attribute__((always_inline)) Register& zero() volatile {
@@ -1079,6 +1319,22 @@ namespace target {
           }
           __attribute__((always_inline)) operator unsigned long () volatile {
             return raw;
+          }
+          /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
           }
           /**
             Sets register to zero
@@ -1151,6 +1407,22 @@ namespace target {
             return raw;
           }
           /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
+          }
+          /**
             Sets register to zero
           */
           __attribute__((always_inline)) Register& zero() volatile {
@@ -1221,6 +1493,22 @@ namespace target {
             return raw;
           }
           /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
+          }
+          /**
             Sets register to zero
           */
           __attribute__((always_inline)) Register& zero() volatile {
@@ -1259,6 +1547,22 @@ namespace target {
             return raw;
           }
           /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
+          }
+          /**
             Sets register to zero
           */
           __attribute__((always_inline)) Register& zero() volatile {
@@ -1295,6 +1599,22 @@ namespace target {
           }
           __attribute__((always_inline)) operator unsigned long () volatile {
             return raw;
+          }
+          /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
           }
           /**
             Sets register to zero
@@ -1350,6 +1670,22 @@ namespace target {
             return raw;
           }
           /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
+          }
+          /**
             Sets register to zero
           */
           __attribute__((always_inline)) Register& zero() volatile {
@@ -1388,6 +1724,22 @@ namespace target {
             return raw;
           }
           /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
+          }
+          /**
             Sets register to zero
           */
           __attribute__((always_inline)) Register& zero() volatile {
@@ -1424,6 +1776,22 @@ namespace target {
           }
           __attribute__((always_inline)) operator unsigned long () volatile {
             return raw;
+          }
+          /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
           }
           /**
             Sets register to zero
@@ -1499,6 +1867,22 @@ namespace target {
           }
           __attribute__((always_inline)) operator unsigned long () volatile {
             return raw;
+          }
+          /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
           }
           /**
             Sets register to zero
@@ -1642,6 +2026,22 @@ namespace target {
             return raw;
           }
           /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
+          }
+          /**
             Sets register to zero
           */
           __attribute__((always_inline)) Register& zero() volatile {
@@ -1708,6 +2108,22 @@ namespace target {
           }
           __attribute__((always_inline)) operator unsigned long () volatile {
             return raw;
+          }
+          /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
           }
           /**
             Sets register to zero
@@ -1780,6 +2196,22 @@ namespace target {
             return raw;
           }
           /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
+          }
+          /**
             Sets register to zero
           */
           __attribute__((always_inline)) Register& zero() volatile {
@@ -1846,6 +2278,22 @@ namespace target {
           }
           __attribute__((always_inline)) operator unsigned long () volatile {
             return raw;
+          }
+          /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
           }
           /**
             Sets register to zero
@@ -1916,6 +2364,22 @@ namespace target {
             return raw;
           }
           /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
+          }
+          /**
             Sets register to zero
           */
           __attribute__((always_inline)) Register& zero() volatile {
@@ -1984,6 +2448,22 @@ namespace target {
             return raw;
           }
           /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
+          }
+          /**
             Sets register to zero
           */
           __attribute__((always_inline)) Register& zero() volatile {
@@ -2022,6 +2502,22 @@ namespace target {
             return raw;
           }
           /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
+          }
+          /**
             Sets register to zero
           */
           __attribute__((always_inline)) Register& zero() volatile {
@@ -2058,6 +2554,22 @@ namespace target {
           }
           __attribute__((always_inline)) operator unsigned long () volatile {
             return raw;
+          }
+          /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
           }
           /**
             Sets register to zero
@@ -2118,6 +2630,22 @@ namespace target {
           }
           __attribute__((always_inline)) operator unsigned long () volatile {
             return raw;
+          }
+          /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
           }
           /**
             Sets register to zero
@@ -2242,6 +2770,22 @@ namespace target {
           }
           __attribute__((always_inline)) operator unsigned long () volatile {
             return raw;
+          }
+          /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
           }
           /**
             Sets register to zero
@@ -2376,6 +2920,22 @@ namespace target {
           }
           __attribute__((always_inline)) operator unsigned long () volatile {
             return raw;
+          }
+          /**
+            Returns copy of the register
+          */
+          __attribute__((always_inline)) Register copy() volatile {
+            Register reg;
+            reg.raw = this->raw;
+            return reg;
+          }
+          /**
+            Returns empty copy of the register
+          */
+          __attribute__((always_inline)) Register bare() volatile {
+            Register reg;
+            reg.raw = 0;
+            return reg;
           }
           /**
             Sets register to zero

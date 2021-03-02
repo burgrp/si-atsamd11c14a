@@ -4,6 +4,9 @@
   "description": "ATSAMD11C14A peripheral library",
   "author": "pb@drake.cz",
   "license": "ISC",
+  "scripts": {
+    "build": "silicon svd ATSAMD11C14A.svd NVMCALIB.svd"
+  },
   "silicon": {
     "target": {
       "name": "ATSAMD11C14A",
@@ -31,6 +34,7 @@
       "generated/tcc.cpp",
       "generated/usb.cpp",
       "generated/wdt.cpp",
+      "generated/nvmcalib.cpp",
       "generated/systick.cpp",
       "generated/nvic.cpp"
     ],
@@ -61,6 +65,7 @@
       "_ZN6target4TCC0E": "0x42001400",
       "_ZN6target3USBE": "0x41005000",
       "_ZN6target3WDTE": "0x40001000",
+      "_ZN6target8NVMCALIBE": "0x806020",
       "_ZN6target7SYSTICKE": "0xE000E010",
       "_ZN6target4NVICE": "0xE000E100"
     },

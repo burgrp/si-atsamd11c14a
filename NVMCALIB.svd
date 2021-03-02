@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<device schemaVersion="1.2" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="CMSIS-SVD.xsd" >
+
+  <peripherals>
+    <peripheral>
+      <name>NVMCALIB</name>
+      <description>24Bit System Tick Timer for use in RTOS</description>
+      <baseAddress>0x806020</baseAddress>     
+      <registers>
+
+        <register>
+          <name>SOFT0</name>
+          <description>Calibration data that are measured and written during production test, index 0</description>
+          <addressOffset>0</addressOffset>
+          <size>32</size>
+          <fields>
+            <field>
+              <name>ADC_LINEARITY_LSB</name>
+              <description>ADC Linearity Calibration, bits 0..4. Should be written to CALIB register.</description>
+              <bitOffset>27</bitOffset>
+              <bitWidth>5</bitWidth>
+              <access>read</access>
+            </field>
+          </fields>
+        </register>
+
+        <register>
+          <name>SOFT1</name>
+          <description>Calibration data that are measured and written during production test, index 1</description>
+          <addressOffset>4</addressOffset>
+          <size>32</size>
+          <fields>
+            <field>
+              <name>ADC_LINEARITY_MSB</name>
+              <description>ADC Linearity Calibration, bits 5..7. Should be written to CALIB register.</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>3</bitWidth>
+              <access>read</access>
+            </field>
+            <field>
+              <name>ADC_BIASCAL</name>
+              <description>ADC Bias Calibration. Should be written to CALIB register.</description>
+              <bitOffset>3</bitOffset>
+              <bitWidth>3</bitWidth>
+              <access>read</access>
+            </field>
+            <field>
+              <name>OSC32K_CAL</name>
+              <description>OSC32KCalibration. Should be written to OSC32K register.</description>
+              <bitOffset>6</bitOffset>
+              <bitWidth>7</bitWidth>
+              <access>read</access>
+            </field>
+            <field>
+              <name>USB_TRANSN</name>
+              <description>USB TRANSN calibration value. Should be written to the USB PADCAL register.</description>
+              <bitOffset>13</bitOffset>
+              <bitWidth>5</bitWidth>
+              <access>read</access>
+            </field>
+            <field>
+              <name>USB_TRANSP</name>
+              <description>USB TRANSP calibration value. Should be written to the USB PADCAL register.</description>
+              <bitOffset>18</bitOffset>
+              <bitWidth>5</bitWidth>
+              <access>read</access>
+            </field>
+            <field>
+              <name>USB_TRIM</name>
+              <description>USB TRIM calibration value. Should be written to the USB PADCAL register.</description>
+              <bitOffset>23</bitOffset>
+              <bitWidth>3</bitWidth>
+              <access>read</access>
+            </field>
+            <field>
+              <name>DFLL48M_COARSE_CAL</name>
+              <description>DFLL48M Coarse calibration value. Should be written to the SYSCTRL DFLLVAL register.</description>
+              <bitOffset>26</bitOffset>
+              <bitWidth>6</bitWidth>
+              <access>read</access>
+            </field>
+          </fields>
+        </register>
+
+      </registers>
+    </peripheral>
+
+  </peripherals>
+</device>
